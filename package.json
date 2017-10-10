@@ -4,6 +4,7 @@
   "description": "Proof of concept for a Remotely Piloted Aircraft System with nodejs.",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/NicolasLeRoux/poc-rpas/issues"
   },
-  "homepage": "https://github.com/NicolasLeRoux/poc-rpas#readme"
+  "homepage": "https://github.com/NicolasLeRoux/poc-rpas#readme",
+  "dependencies": {
+    "opencv": "^6.0.0"
+  }
 }
