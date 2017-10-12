@@ -1,6 +1,12 @@
 var fs = require('fs'),
 	opencv = require('opencv');
 
+// 1. Lecture d'un stream vidéo
+var stream = new opencv.VideoStream(0);
+
+// Option 2, ``camera.toStream()`` pour convertir la capture vidéo.
+
+/*
 var camera = new opencv.VideoCapture(0),
 	window = new opencv.NamedWindow('Video', 0),
 	patternPath = './node_modules/opencv/data/haarcascade_frontalface_alt2.xml';
@@ -24,3 +30,4 @@ setInterval(function() {
 		window.blockingWaitKey(0, 50);
 	});
 }, 20);
+*/
