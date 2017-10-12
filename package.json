@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/NicolasLeRoux/poc-rpas#readme",
   "dependencies": {
-    "opencv": "^6.0.0"
+    "opencv": "^6.0.0",
+    "wrtc": "0.0.62"
   }
 }
