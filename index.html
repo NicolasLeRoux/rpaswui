@@ -51,6 +51,10 @@
 						});
 					}).then(function(res) {
 						return res.json;
+					}).then(function(json) {
+						peerCo.ondatahannel = function (event) {
+							console.info('Got data channel: ', event);
+						};
 					});
 			};
 

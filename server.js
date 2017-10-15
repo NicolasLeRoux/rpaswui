@@ -5,7 +5,8 @@ const express = require('express'),
 
 var app = express(),
 	pc,
-	videoStream;
+	videoStream,
+	sendChannel;
 
 app.use(function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*');
@@ -27,8 +28,17 @@ app.get('/getServerDescription', function(req, res) {
 				pc.setLocalDescription(desc);
 			});
 
-		videoStream = new opencv.VideoStream(0);
+		//videoStream = new opencv.VideoStream(0);
 	}
+
+	sendChannel = pc.createDataChannel('video', {
+		// UPD Semantics
+		ordered: false,
+		maxRetransmits: 0
+	});
+	sendChannel.onpen = function () {
+		console.info('Open data Channel');
+	};
 
 	res.setHeader('Content-Type', 'application/json');
 	res.end(JSON.stringify(pc.localDescription));
@@ -44,8 +54,18 @@ app.post('/setClientDescription', function(req, res) {
 			console.log(error);
 		});
 
+	setTimeout(function () {
+		sendData();
+	}, 2000);
+
 	res.setHeader('Content-Type', 'application/json');
 	res.end(JSON.stringify(req.body));
 });
+
+function sendData () {
+	console.info('Send data !');
+
+	sendChannel.send('test');
+};
 
 app.listen(8080);
