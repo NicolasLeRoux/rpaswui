@@ -11,3 +11,5 @@ TODO
 ## Tuto
 
 https://planb.nicecupoftea.org/2016/10/24/a-presence-robot-with-chromium-webrtc-raspberry-pi-3-and-easyrtc/
+
+https://www.grafikart.fr/tutoriels/javascript/webrtc-864

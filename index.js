@@ -1,8 +1,9 @@
 var fs = require('fs'),
-	opencv = require('opencv');
+	opencv = require('opencv'),
+	webrtc = require('wrtc');
 
 // 1. Lecture d'un stream vidéo
-var stream = new opencv.VideoStream(0);
+//var stream = new opencv.VideoStream(0);
 
 // Option 2, ``camera.toStream()`` pour convertir la capture vidéo.
 
