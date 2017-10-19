@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Page webRTC</title>
+	</head>
+	<body>
+		<h1>Page webRTC</h1>
+		<script>
+			var ws = new WebSocket('ws://localhost:3000', 'echo-protocol');
+
+			ws.onopen = () => {
+				console.info('WebSocket is now open.');
+
+				ws.send('Mon premier message...');
+			};
+		</script>
+	</body>
+</html>
