@@ -24,6 +24,21 @@ Pour le data channel
 https://github.com/webrtc/samples/tree/gh-pages/src/content/datachannel
 
 
+## Description
+
+Title: MMIRPAS (Man Machine Interface for a Remotely Piloted Aircraft System)
+
+What: L'objectif de ce projet est de créer une interface web de pilotage de drone
+(ou RPAS). La cible est d'avoir un échange bidirectionnelle de donnée, la vidéo
+et les mesures des capteurs du drone vers le smartphone et les consignes de
+pilotage du smartphone vers le drone.
+
+Why: L'innovation est dans l'utilisation d'une plateforme web pour piloter un
+drone.
+
+
+
+
 ## Liens
 
 https://webrtc.github.io/samples/
