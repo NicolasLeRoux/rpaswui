@@ -46,19 +46,37 @@ function onMessage (json, connec) {
 			videoChannel.onopen = function () {
 				console.info('Video channel opened.');
 
-				videoChannel.send('Mon super message !');
+				videoChannel.send('Server: Mon super message !');
 			};
 			videoChannel.onclose = function () {
 				console.info('Video channel closed.');
 			};
 
+			pc.ondatachannel = function (event) {
+				console.info('Serveur get data channel', event);
+
+				var channel = event.channel;
+
+				channel.onmessage = function (e) {
+					console.info('Command channel on message: ', e.data);
+				};
+				channel.onopen = function () {
+					console.info('Command channel on open');
+				};
+				channel.onclose = function () {
+					console.info('Command channel on close');
+				};
+			};
+
 			pc.onicecandidate = function (event) {
 				console.info('Server on ICE candidate', event);
 
-				ws.send(JSON.stringify({
-					type: 'icecandidate',
-					data: event.candidate
-				}));
+				if (event.candidate) {
+					connec.send(JSON.stringify({
+						type: 'icecandidate',
+						data: event.candidate
+					}));
+				}
 			};
 
 			pc.setRemoteDescription(desc)

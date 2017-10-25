@@ -9,6 +9,20 @@
 			var ws = new WebSocket('ws://localhost:3000', 'echo-protocol'),
 				pc = new RTCPeerConnection();
 
+			window.commandChannel = pc.createDataChannel('command', {
+				// UPD Semantics
+				ordered: false,
+				maxRetransmits: 0
+			});
+			commandChannel.onopen = function () {
+				console.info('Command channel opened.');
+
+				commandChannel.send('Client: Mon super message !');
+			};
+			commandChannel.onclose = function () {
+				console.info('Command channel closed.');
+			};
+
 			pc.ondatachannel = function (event) {
 				console.info('Client get data channel', event);
 
@@ -28,10 +42,12 @@
 			pc.onicecandidate = function (event) {
 				console.info('Client on ICE candidate', event);
 
-				ws.send(JSON.stringify({
-					type: 'icecandidate',
-					data: event.candidate
-				}));
+				if (event.candidate) {
+					ws.send(JSON.stringify({
+						type: 'icecandidate',
+						data: event.candidate
+					}));
+				}
 			};
 
 			ws.onopen = () => {
@@ -63,7 +79,7 @@
 					case 'icecandidate':
 						pc.addIceCandidate(json.data)
 							.then(() => {
-								console.info('Adding ICE candidate success !');
+								console.info('Adding ICE candidate success ! Info: ', json.data);
 							}).catch(error => {
 								console.warn('ICE candidate error: ', error);
 							});
