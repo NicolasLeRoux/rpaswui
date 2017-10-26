@@ -5,6 +5,7 @@
 	</head>
 	<body>
 		<h1>Page webRTC</h1>
+		<img>
 		<script>
 			var ws = new WebSocket('ws://localhost:3000', 'echo-protocol'),
 				pc = new RTCPeerConnection();
@@ -28,8 +29,12 @@
 
 				var channel = event.channel;
 
+				// Réception des images !
 				channel.onmessage = function (e) {
-					console.info('Video channel on message: ', e.data);
+					var imgElm = document.querySelector('img');
+
+					console.info('Taille de la chaine: ', e.data.length);
+					imgElm.src = 'data:image/png;base64,' + e.data;
 				};
 				channel.onopen = function () {
 					console.info('Video channel on open.');
