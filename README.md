@@ -8,6 +8,14 @@ Proof of concept for a Remotely Piloted Aircraft System with nodejs
 TODO
 
 
+## TODO
+
+L'enregistrement vidéo est fonctionnelle mais la transmission du flux sur le
+canal WebRTC nécessite la serialisation des données. Plusieurs possibilitées
+existent dont la transformation en base 64 avec un codex jpg... Enfin, c'est
+encore à creuser...
+
+
 ## Tuto
 
 https://planb.nicecupoftea.org/2016/10/24/a-presence-robot-with-chromium-webrtc-raspberry-pi-3-and-easyrtc/

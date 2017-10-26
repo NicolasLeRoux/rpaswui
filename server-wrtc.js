@@ -3,7 +3,8 @@ const path = require('path'),
 	http = require('http'),
 	wrtc = require('wrtc'),
 	bodyParser = require('body-parser'),
-	WebSocketServer = require('websocket').server;
+	WebSocketServer = require('websocket').server,
+	opencv = require('opencv');
 
 var app = express(),
 	server = http.createServer(app),
@@ -46,7 +47,13 @@ function onMessage (json, connec) {
 			videoChannel.onopen = function () {
 				console.info('Video channel opened.');
 
-				videoChannel.send('Server: Mon super message !');
+				videoStream = new opencv.VideoStream(0);
+				videoStream.on('data', function (matrix) {
+					videoChannel.send(JSON.stringify({
+						matrix: matrix.getData()
+					}));
+				});
+				videoStream.read();
 			};
 			videoChannel.onclose = function () {
 				console.info('Video channel closed.');
