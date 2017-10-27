@@ -2,10 +2,78 @@
 <html>
 	<head>
 		<title>Page webRTC</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+		<style>
+			html,
+			body {
+				width: 100%;
+				height: 100%
+			}
+
+			body {
+				margin: 0;
+				padding: 0;
+			}
+
+			.screen-lock {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 500px;
+				height: 200px;
+			}
+
+			.screen-lock svg {
+				display: block;
+				margin: auto;
+				fill: gray;
+			}
+
+			.screen-lock h3 {
+				text-align: center;
+				color: gray;
+			}
+		</style>
 	</head>
 	<body>
+		<!--
 		<h1>Page webRTC</h1>
+		-->
+
+		<!--
+		Lock du mode portrait
+		-->
+		<div class="screen-lock">
+			<svg height="150"
+				width="150">
+				<use href="#screen-rotation">
+			</svg>
+			<h3>Veuillez tourner l'écran afin d'être en mode paysage !</h3>
+		</div>
+
 		<img>
+
+		<!--
+		Set de svg à utiliser sur le projet.
+		-->
+		<svg style="display: none;">
+			<defs>
+				<svg id="screen-rotation"
+					viewBox="0 0 24 24"
+					preserveAspectRatio="xMidYMid meet"
+					focusable="false"
+					style="pointer-events: none; display: block; width: 100%; height: 100%;">
+					<path d="M16.48 2.52c3.27 1.55 5.61 4.72 5.97 8.48h1.5C23.44 4.84 18.29 0 12 0l-.66.03 3.81 3.81 1.33-1.32zm-6.25-.77c-.59-.59-1.54-.59-2.12 0L1.75 8.11c-.59.59-.59 1.54 0 2.12l12.02 12.02c.59.59 1.54.59 2.12 0l6.36-6.36c.59-.59.59-1.54 0-2.12L10.23 1.75zm4.6 19.44L2.81 9.17l6.36-6.36 12.02 12.02-6.36 6.36zm-7.31.29C4.25 19.94 1.91 16.76 1.55 13H.05C.56 19.16 5.71 24 12 24l.66-.03-3.81-3.81-1.33 1.32z"></path>
+				</svg>
+			</defs>
+		</svg>
+
+		<script>
+
+		</script>
+
 		<script>
 			var ws = new WebSocket('ws://localhost:3000', 'echo-protocol'),
 				pc = new RTCPeerConnection();
@@ -55,7 +123,7 @@
 				}
 			};
 
-			ws.onopen = () => {
+			/*ws.onopen = () => {
 				console.info('WebSocket is now open.');
 
 				pc.createOffer()
@@ -69,7 +137,7 @@
 							data: pc.localDescription
 						}));
 					});
-			};
+			};*/
 
 			ws.onmessage = function (event) {
 				var json = JSON.parse(event.data);
