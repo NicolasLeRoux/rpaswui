@@ -48,15 +48,15 @@ function onMessage (json, connec) {
 				console.info('Video channel opened.');
 
 				var videoStream = new opencv.VideoStream(0);
-				videoStream.video.setWidth(320);
-				videoStream.video.setHeight(240);
+				videoStream.video.setWidth(568);
+				videoStream.video.setHeight(320);
 				videoStream.on('data', function (matrix) {
 					// Ici, trop de data en une seul fois...
 					// https://github.com/js-platform/node-webrtc/issues/156
 					// Le Buffer est une class node !!!
 					var str = matrix.toBuffer().toString('base64');
 					console.log('Taille de la chaine: ', str.length);
-					videoChannel.send(str.slice(0, 60000));
+					videoChannel.send(str.slice(0, 50000));
 				});
 				videoStream.read();
 			};
