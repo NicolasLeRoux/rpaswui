@@ -135,13 +135,13 @@
 			pc.ondatachannel = function (event) {
 				console.info('Client get data channel', event);
 
-				var channel = event.channel;
+				var channel = event.channel,
+					imgElm = document.querySelector('img');
 
 				// Réception des images !
 				channel.onmessage = function (e) {
-					var imgElm = document.querySelector('img');
 
-					console.info('Taille de la chaine: ', e.data.length);
+					//console.info('Taille de la chaine: ', e.data.length);
 					imgElm.src = 'data:image/png;base64,' + e.data;
 				};
 				channel.onopen = function () {
