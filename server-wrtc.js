@@ -48,7 +48,11 @@ function onMessage (json, connec) {
 				console.info('Video channel opened.');
 
 				var videoStream = new opencv.VideoStream(0);
-				videoStream.video.setWidth(568);
+				/**
+				 * J'obtient ici une image de 480*640 alors que je souhaite
+				 * avoir une image de 568*320.
+				 */
+				videoStream.video.setWidth(430);
 				videoStream.video.setHeight(320);
 				videoStream.on('data', function (matrix) {
 					// Ici, trop de data en une seul fois...
