@@ -46,6 +46,11 @@
 				display: none;
 			}
 
+			.accueil {
+				width: 100%;
+				height: 100%;
+			}
+
 			.video {
 				width: 100%;
 				height: 100%;
@@ -56,6 +61,19 @@
 				height: 100%;
 				margin: auto;
 				display: block;
+			}
+
+			.capteur-area {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				height: 30px;
+				width: 100%;
+				background-color: rgba(255, 255, 255, 0.6);
+			}
+
+			.capteur-area > p {
+				margin: 6px;
 			}
 		</style>
 	</head>
@@ -103,13 +121,26 @@
 		</div>
 
 		<!--
-		<div>
-			<button>Get started</button>
-		</div>
+		Accueil
 		-->
+		<div class="accueil hidden">
+			<button id="start-btn">Get started</button>
+		</div>
 
+		<!--
+		Remote piloting area...
+		-->
 		<div class="video">
 			<img>
+			<div class="capteur-area">
+				<p>
+					<span>Vitesse: 30 km/h</span>
+					<span> | </span>
+					<span>Altitude: 2,5 m</span>
+					<span> | </span>
+					<span>Templérature: 10 °C</span>
+				</p>
+			</div>
 		</div>
 
 		<script>
@@ -135,6 +166,14 @@
 
 			window.addEventListener('orientationchange', function() {
 				lockElm.classList.toggle('hidden', getDeviceOrientation());
+			});
+		</script>
+
+		<script>
+			var btn = document.querySelector('#start-btn');
+
+			btn.addEventListener('click', function (event) {
+				var targetElm = event.currentTarget;
 			});
 		</script>
 
@@ -190,6 +229,10 @@
 			ws.onopen = () => {
 				console.info('WebSocket is now open.');
 
+				startWebRTCSession();
+			};
+
+			var startWebRTCSession = function () {
 				pc.createOffer()
 					.then(offerDesc => {
 						console.info('Set server local description from offer: ', offerDesc);

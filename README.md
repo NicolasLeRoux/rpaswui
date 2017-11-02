@@ -16,6 +16,9 @@ existent dont la transformation en base 64 avec un codex jpg... Enfin, c'est
 encore à creuser...
 
 
+Utiliser un canvas pour ajouter des informations complémentaires sur l'images.
+
+
 ## Tuto
 
 https://planb.nicecupoftea.org/2016/10/24/a-presence-robot-with-chromium-webrtc-raspberry-pi-3-and-easyrtc/
