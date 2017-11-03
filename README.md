@@ -19,6 +19,11 @@ encore à creuser...
 Utiliser un canvas pour ajouter des informations complémentaires sur l'images.
 
 
+## ZeroConf
+
+Utiliser le protocol ZeroConf pour la connection au drone: https://github.com/watson/bonjour
+
+
 ## Tuto
 
 https://planb.nicecupoftea.org/2016/10/24/a-presence-robot-with-chromium-webrtc-raspberry-pi-3-and-easyrtc/

@@ -25,6 +25,7 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "node-wifi": "^1.2.5",
     "opencv": "^6.0.0",
     "websocket": "^1.0.24",
     "wrtc": "0.0.62"
