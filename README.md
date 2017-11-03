@@ -48,6 +48,23 @@ Why: L'innovation est dans l'utilisation d'une plateforme web pour piloter un
 drone.
 
 
+## Devops
+
+Idée à tester pour permettre la recherche facile du drone dans le réseau local.
+
+1. Une page web qui va faire la recherche des périfériques bluethoot dans les
+environs.
+
+2. Une fois le périférique détecté avec le bluethoot, la page web permet de setter
+les configs du réseaux local.
+
+3. Dès que le drone est sur le réseau local, il indique sa présence via le 
+protocol zeroconf.
+
+4. Le site catch la présence du drone et peut donc effectuer la redirection (ou
+autre) sur ce dernier.
+
+5. Le pilotage peut commencer !!!
 
 
 ## Liens
