@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,9 +26,13 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "mithril": "^1.1.5",
     "node-wifi": "^1.2.5",
     "opencv": "^6.0.0",
     "websocket": "^1.0.24",
     "wrtc": "0.0.62"
+  },
+  "devDependencies": {
+    "webpack": "^3.8.1"
   }
 }
