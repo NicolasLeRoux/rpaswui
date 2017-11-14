@@ -8,8 +8,28 @@ module.exports = {
 		filename: 'bundle.js'
 	},
 	plugins: [
-		new webpack.ProvidePlugin({
-			m: 'mithril'
-		})
-	]
+	],
+	module: {
+		rules: [
+			{
+				test: /\.scss$/,
+				use: [
+					{
+						loader: 'style-loader'
+					},
+					{
+						loader: 'css-loader'
+					},
+					{
+						loader: 'sass-loader',
+						options: {
+							includePaths: [
+								'./node_modules/'
+							]
+						}
+					}
+				]
+			}
+		]
+	}
 };
