@@ -69,6 +69,11 @@ autre) sur ce dernier.
 5. Le pilotage peut commencer !!!
 
 
+## Gyro from smartphone
+
+http://blog.js-republic.com/utiliser-gyrojs-javascript/
+
+
 ## Liens
 
 https://webrtc.github.io/samples/
