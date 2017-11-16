@@ -1,8 +1,8 @@
 import m from 'mithril';
-import style from './headerStyle.scss';
+import style from './headerComponent.scss';
 
-var headerView = {
-	view: function (vnode) {
+class HeaderComponent {
+	view (vnode) {
 		return m('div', {
 			class: 'mdc-toolbar'
 		}, [
@@ -24,4 +24,4 @@ var headerView = {
 	}
 };
 
-export default headerView;
+export default HeaderComponent;
