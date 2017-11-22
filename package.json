@@ -4,8 +4,9 @@
   "description": "Proof of concept for a Remotely Piloted Aircraft System with nodejs.",
   "main": "index.js",
   "scripts": {
-    "prestart": "npm run build",
-    "start": "ws --directory ./public --spa index.html",
+    "start": "ws --spa index.html",
+    "prestart:bis": "npm run build",
+    "start:bis": "ws --directory ./public --spa index.html",
     "start:old": "node index.js",
     "build": "run-p build:*",
     "build:index": "mkdir -p public && cp index.html public/",

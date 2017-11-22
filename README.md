@@ -60,7 +60,7 @@ environs.
 2. Une fois le périférique détecté avec le bluethoot, la page web permet de setter
 les configs du réseaux local.
 
-3. Dès que le drone est sur le réseau local, il indique sa présence via le 
+3. Dès que le drone est sur le réseau local, il indique sa présence via le
 protocol zeroconf.
 
 4. Le site catch la présence du drone et peut donc effectuer la redirection (ou
@@ -68,6 +68,22 @@ autre) sur ce dernier.
 
 5. Le pilotage peut commencer !!!
 
+
+## Architecture
+
+### Serveur
+
+Un simple serveur node permettant de retourner la page d'index et d'afficher les
+drone disponible à la prise de contrôle (warning sécurité...). Les drones disponibles
+sont ceux qui sont connecter en web socket.
+
+### Client
+
+TODO
+
+### Drone
+
+TODO
 
 ## Liens
 
