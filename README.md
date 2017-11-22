@@ -85,6 +85,10 @@ TODO
 
 TODO
 
+## Gyro from smartphone
+
+http://blog.js-republic.com/utiliser-gyrojs-javascript/
+
 ## Liens
 
 https://webrtc.github.io/samples/
