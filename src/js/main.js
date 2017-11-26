@@ -1,4 +1,6 @@
 import test from './test.js';
+import PersonneModel from './PersonneModel.js';
+import ObservableCollection from './ObservableCollection.js';
 
 // Liste de drone disponible au pilotage.
 var drones = [
@@ -14,9 +16,6 @@ var drones = [
 
 // TODO Debug only
 window.drones = drones;
-
-var obs = new Rx.Subject(drones)
-	.pairwise();
 
 var renderItem = function (item) {
 	return `
@@ -41,18 +40,22 @@ drones.map(item => {
 	}
 });
 
-obs.subscribe(([old, current]) => {
-	console.log(old, current);
+var model = new PersonneModel({
+	name: 'Pierre'
 });
+window.model = model;
+console.log(model.name);
+model.subscribe(val => {
+	console.log(val);
+});
+model.name = 'Thomas';
 
-drones.push({
+var collection = new ObservableCollection(drones);
+window.collection = collection;
+collection.subscribe(val => {
+	console.log(val);
+});
+collection.push({
 	id: 'drone003',
 	name: 'Drone'
 });
-obs.next(drones.slice());
-
-drones.push({
-	id: 'drone004',
-	name: 'DroneBis'
-});
-obs.next(drones.slice());

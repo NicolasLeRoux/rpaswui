@@ -36,7 +36,8 @@
     "node-wifi": "^1.2.5",
     "opencv": "^6.0.0",
     "websocket": "^1.0.24",
-    "wrtc": "0.0.62"
+    "wrtc": "0.0.62",
+    "zen-observable": "^0.6.0"
   },
   "devDependencies": {
     "css-loader": "^0.28.7",
