@@ -1,71 +1,108 @@
-const express = require('express'),
-	wrtc = require('wrtc'),
-	bodyParser = require('body-parser'),
-	opencv = require('opencv');
+const WebSocketServer = require('websocket').server,
+	http = require('http'),
+	express = require('express');
 
-var app = express(),
-	pc,
-	videoStream,
-	sendChannel;
+var drones = [];
 
-app.use(function(req, res, next) {
-	res.header('Access-Control-Allow-Origin', '*');
-	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-	next();
+var serverClient = http.createServer(function (req, res) {
+	console.info('Received request for ' + req.url);
+
+	res.writeHead(404);
+	res.end();
 });
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+var serverRpas = http.createServer(function (req, res) {
+	console.info('Received request for ' + req.url);
 
-app.use(bodyParser.json());
+	res.writeHead(404);
+	res.end();
+});
 
-app.get('/getServerDescription', function(req, res) {
-	if (!pc) {
-		pc = new wrtc.RTCPeerConnection();
-		pc.createOffer()
-			.then(function(desc) {
-				console.log('Local desc: ', desc);
-				pc.setLocalDescription(desc);
-			});
+serverClient.listen(8000, function () {
+	console.info('Server is listening on port 8000');
+});
 
-		//videoStream = new opencv.VideoStream(0);
+serverRpas.listen(9000, function () {
+	console.info('Server is listening on port 9000');
+});
+
+var wsServerClient = new WebSocketServer({
+	httpServer: serverClient,
+	autoAcceptConnections: false
+});
+
+var wsServerRpas = new WebSocketServer({
+	httpServer: serverRpas,
+	autoAcceptConnections: false
+});
+
+// TODO: Make it more specific !!!
+function originIsAllowed (origin) {
+	return true;
+};
+
+/*
+ * Server pour les WebSockets.
+ *
+ * Exemple de code client:
+ * ```js
+ * var ws = new WebSocket('ws://localhost:8000', 'echo-protocol');
+ * ws.send('Mon message...');
+ * ```
+ */
+wsServerClient.on('request', function (req) {
+	if (!originIsAllowed(req.origin)) {
+		console.warn('Origin not allowed !!!');
+
+		return req.reject();
 	}
 
-	sendChannel = pc.createDataChannel('video', {
-		// UPD Semantics
-		ordered: false,
-		maxRetransmits: 0
+	console.info('[Client] New websocket connection !');
+
+	var connec = req.accept('echo-protocol', req.origin);
+	connec.on('message', function (message) {
+		if (message.type === 'utf8') {
+			console.info('[Client] Received utf8 message.');
+		} else if (message.type === 'binary') {
+			console.info('[Client] Received binary message.');
+		}
 	});
-	sendChannel.onpen = function () {
-		console.info('Open data Channel');
-	};
-
-	res.setHeader('Content-Type', 'application/json');
-	res.end(JSON.stringify(pc.localDescription));
+	connec.on('close', function () {
+		console.info('[Client] Peer disconnected...');
+	});
 });
 
-app.post('/setClientDescription', function(req, res) {
-	console.log('Description du clien...', req.body);
+/**
+ * WebSocket de connection pour les drones.
+ */
+wsServerRpas.on('request', function (req) {
+	if (!originIsAllowed(req.origin)) {
+		console.warn('Origin not allowed !!!');
 
-	pc.setRemoteDescription(new wrtc.RTCSessionDescription(req.body))
-		.then(function() {
-			console.log('Set remote description...');
-		}).catch(function (error) {
-			console.log(error);
-		});
+		return req.reject();
+	}
 
-	setTimeout(function () {
-		sendData();
-	}, 2000);
+	console.info('[RPAS] New websocket connection !');
 
-	res.setHeader('Content-Type', 'application/json');
-	res.end(JSON.stringify(req.body));
+	var connec = req.accept('echo-protocol', req.origin);
+	connec.on('message', function (message) {
+		if (message.type === 'utf8') {
+			console.info('[RPAS] Received utf8 message.');
+			drones.push(JSON.parse(message.utf8Data));
+		} else if (message.type === 'binary') {
+			console.info('[RPAS] Received binary message.');
+		}
+	});
+	connec.on('close', function () {
+		console.info('[RPAS] Peer disconnected...');
+	});
 });
 
-function sendData () {
-	console.info('Send data !');
+var app = express();
 
-	sendChannel.send('test');
-};
+app.get('/drones', function(req, res) {
+	res.setHeader('Content-Type', 'application/json');
+	res.end(JSON.stringify(drones));
+});
 
 app.listen(8080);
