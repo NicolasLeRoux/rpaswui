@@ -1,11 +1,11 @@
 import ObservableModel from './ObservableModel.js';
 
 class Personne extends ObservableModel {
-	static default () {
-		return {
-			name: undefined,
-			age: undefined
-		}
+	static get observedAttributes() {
+		return [
+			'name',
+			'age'
+		]
 	}
 
 	constructor (attrs) {

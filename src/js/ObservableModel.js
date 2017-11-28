@@ -1,7 +1,14 @@
 class ObservableModel {
+	static get observedAttributes() {
+		return []
+	}
+
 	constructor (attrs) {
+		var defaultAttrs = {};
+		this.constructor.observedAttributes.forEach(item => defaultAttrs[item] = undefined);
+
 		this.attributes = Object.assign({},
-			this.constructor.default(),
+			defaultAttrs,
 			attrs);
 
 		for (let attr in this.attributes) {

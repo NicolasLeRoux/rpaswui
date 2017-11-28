@@ -1,6 +1,7 @@
 import test from './test.js';
 import PersonneModel from './PersonneModel.js';
 import ObservableCollection from './ObservableCollection.js';
+import MutationObserverModel from './MutationObserverModel.js';
 
 // Liste de drone disponible au pilotage.
 var drones = [
@@ -102,3 +103,23 @@ observer.observe(target, config);
 
 target.append(document.createElement('li'), document.createElement('li'));
 target.append(document.createElement('li'));
+
+
+/**
+ * Warning, impossible d'avoir des majuscule dans les noms des attributes...
+ */
+class Pers extends MutationObserverModel {
+	static get observedAttributes() {
+		return [
+			'name',
+			'age'
+		]
+	}
+
+	constructor (attrs) {
+		super(attrs);
+	}
+}
+
+var pers = new Pers();
+window.pers = pers;
