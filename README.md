@@ -15,7 +15,13 @@ L'innovation est dans l'utilisation d'une plateforme web pour piloter un drone.
 
 ## Install
 
-TODO
+Installer les dépendances avec la commande ``npm i``.
+
+
+## Start
+
+Démarrer l'application avec la commande ``npm start`` et ouvrir le navigateur
+à l'URL [localhost:8000](http://localhost:8000/).
 
 
 ## TODO
