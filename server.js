@@ -12,7 +12,11 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get('/**/*', (req, res) => {
+app.get('/src/**/*', (req, res) => {
+	res.sendFile(path.join(__dirname, req.url));
+});
+
+app.get('/node_modules/**/*', (req, res) => {
 	res.sendFile(path.join(__dirname, req.url));
 });
 
