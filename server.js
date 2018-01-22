@@ -1,9 +1,14 @@
 const path = require('path'),
 	express = require('express'),
-	http = require('http');
+	http = require('http'),
+	WebSocketServer = require('websocket').server;
 
 let app = express(),
 	server = http.createServer(app),
+	wsServer = new WebSocketServer({
+		httpServer: server,
+		autoAcceptConnections: false
+	}),
 	drones = [];
 
 drones.push({
@@ -31,6 +36,22 @@ app.get('/node_modules/**/*', (req, res) => {
 app.get('/api/drones', (req, res) => {
 	res.setHeader('Content-Type', 'application/json');
 	res.send(JSON.stringify(drones));
+});
+
+/**
+ * Serveur pour les WebSockets.
+ *
+ * Exemple de code client:
+ * ```js
+ * var ws = new WebSocket('ws://localhost:8000', 'echo-protocol');
+ * ws.send('Mon message...');
+ * ```
+ */
+wsServer.on('request', function (req) {
+	console.info('New websocket connection !');
+
+	let connec = req.accept('echo-protocol', req.origin);
+	connec.send(JSON.stringify(drones));
 });
 
 /**
