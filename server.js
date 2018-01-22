@@ -12,7 +12,12 @@ let app = express(),
 	drones = [];
 
 drones.push({
-	name: 'drone-001'
+	id: 'drone-001',
+	name: 'Small one'
+});
+drones.push({
+	id: 'drone-002',
+	name: 'Big one'
 });
 
 /**
