@@ -3,7 +3,12 @@ const path = require('path'),
 	http = require('http');
 
 let app = express(),
-	server = http.createServer(app)
+	server = http.createServer(app),
+	drones = [];
+
+drones.push({
+	name: 'drone-001'
+});
 
 /**
  * Serveur de fichier
@@ -18,6 +23,14 @@ app.get('/src/**/*', (req, res) => {
 
 app.get('/node_modules/**/*', (req, res) => {
 	res.sendFile(path.join(__dirname, req.url));
+});
+
+/**
+ * Web services
+ */
+app.get('/api/drones', (req, res) => {
+	res.setHeader('Content-Type', 'application/json');
+	res.send(JSON.stringify(drones));
 });
 
 /**

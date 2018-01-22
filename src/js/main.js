@@ -31,14 +31,18 @@ document.body.append(elm);
  * Le diff est à voir pour plus tard, pour le moment un re-render butal est good
  * enough...
  */
-drones.map(item => {
-	if (!document.querySelector(`#${item.id}`)) {
-		let li = document.createElement('li');
-		li.id = item.id;
-		li.innerHTML = renderItem(item);
-		elm.append(li);
-	}
-});
+fetch('/api/drones')
+	.then(resp => resp.json())
+	.then(drones => {
+		drones.map(item => {
+			if (!document.querySelector(`#${item.id}`)) {
+				let li = document.createElement('li');
+				li.id = item.id;
+				li.innerHTML = renderItem(item);
+				elm.append(li);
+			}
+		});
+	});
 
 var model = new PersonneModel({
 	name: 'Pierre'
