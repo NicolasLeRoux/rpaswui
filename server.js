@@ -56,7 +56,15 @@ wsServer.on('request', function (req) {
 	console.info('New websocket connection !');
 
 	let connec = req.accept('echo-protocol', req.origin);
-	connec.send(JSON.stringify(drones));
+	connec.on('message', function(message) {
+		if (message.type === 'utf8') {
+			let json = JSON.parse(message.utf8Data);
+
+			if (json.type === 'CLIENT') {
+				connec.send(JSON.stringify(drones));
+			}
+		}
+	});
 });
 
 /**

@@ -25,6 +25,11 @@ ws.onmessage = (event) => {
 		}
 	});
 };
+ws.onopen = function (event) {
+	ws.send(JSON.stringify({
+		type: 'CLIENT'
+	}));
+};
 
 // create an observer instance
 var observer = new MutationObserver(function(mutations) {
