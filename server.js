@@ -62,6 +62,8 @@ wsServer.on('request', function (req) {
 
 			if (json.type === 'CLIENT') {
 				connec.send(JSON.stringify(drones));
+			} else if (json.type === 'DRONE') {
+				console.log('New drone connection !!!');
 			}
 		}
 	});
