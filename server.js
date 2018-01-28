@@ -9,16 +9,8 @@ let app = express(),
 		httpServer: server,
 		autoAcceptConnections: false
 	}),
-	drones = [];
-
-drones.push({
-	id: 'drone-001',
-	name: 'Small one'
-});
-drones.push({
-	id: 'drone-002',
-	name: 'Big one'
-});
+	drones = [],
+	clients = [];
 
 /**
  * Serveur de fichier
@@ -62,8 +54,21 @@ wsServer.on('request', function (req) {
 
 			if (json.type === 'CLIENT') {
 				connec.send(JSON.stringify(drones));
+				clients.push(Object.assign(json, {
+					connec
+				}));
 			} else if (json.type === 'DRONE') {
-				console.log('New drone connection !!!');
+				drones.push(Object.assign(json, {
+					connec
+				}));
+				clients.forEach((cli) => {
+					cli.connec.send(JSON.stringify(drones.map((drone) => {
+						return {
+							id: drone.id,
+							name: drone.name
+						}
+					})));
+				});
 			}
 		}
 	});
