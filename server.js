@@ -62,17 +62,38 @@ wsServer.on('request', function (req) {
 					connec
 				}));
 				clients.forEach((cli) => {
-					cli.connec.send(JSON.stringify(drones.map((drone) => {
-						return {
-							id: drone.id,
-							name: drone.name
-						}
-					})));
+					cli.connec.send(JSON.stringify(getDrones()));
 				});
 			}
 		}
 	});
+
+	connec.on('close', function(reasonCode, description) {
+		const drone = drones.find(item => {
+				return item.connec === connec;
+			});
+		const index = drones.indexOf(drone);
+
+		if (index !== -1) {
+			console.log(index);
+			drones.splice(index, 1);
+			console.log(drones);
+
+			clients.forEach((cli) => {
+				cli.connec.send(JSON.stringify(getDrones()));
+			});
+		}
+	});
 });
+
+const getDrones = function () {
+	return drones.map((drone) => {
+		return {
+			id: drone.id,
+			name: drone.name
+		}
+	});
+};
 
 /**
  * Démarrage du serveur

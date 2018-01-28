@@ -16,6 +16,9 @@ let ws = new WebSocket('ws://localhost:3000', 'echo-protocol');
 ws.onmessage = (event) => {
 	let drones = JSON.parse(event.data);
 
+	// RAZ
+	elm.innerHTML = '';
+
 	drones.map(item => {
 		if (!document.querySelector(`#${item.id}`)) {
 			let li = document.createElement('li');
