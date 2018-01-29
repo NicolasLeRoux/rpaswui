@@ -9,7 +9,6 @@ let app = express(),
 		httpServer: server,
 		autoAcceptConnections: false
 	}),
-	drones = [],
 	clients = [];
 
 /**
@@ -52,47 +51,58 @@ wsServer.on('request', function (req) {
 		if (message.type === 'utf8') {
 			let json = JSON.parse(message.utf8Data);
 
-			if (json.type === 'CLIENT') {
-				connec.send(JSON.stringify(drones));
-				clients.push(Object.assign(json, {
-					connec
-				}));
+			clients.push(Object.assign(json, {
+				connec
+			}));
+
+			if (json.type === 'PILOT') {
+				connec.send(JSON.stringify(clients.filter(isMovable)));
 			} else if (json.type === 'DRONE') {
-				drones.push(Object.assign(json, {
-					connec
-				}));
-				clients.forEach((cli) => {
-					cli.connec.send(JSON.stringify(getDrones()));
-				});
+				clients
+					.filter(isPilot)
+					.forEach((cli) => {
+						cli.connec.send(JSON.stringify(getDrones()));
+					});
 			}
 		}
 	});
 
 	connec.on('close', function(reasonCode, description) {
-		const drone = drones.find(item => {
+		const drone = clients
+			.find(item => {
 				return item.connec === connec;
 			});
-		const index = drones.indexOf(drone);
+		const index = clients.indexOf(drone);
 
 		if (index !== -1) {
-			console.log(index);
-			drones.splice(index, 1);
-			console.log(drones);
+			clients.splice(index, 1);
 
-			clients.forEach((cli) => {
-				cli.connec.send(JSON.stringify(getDrones()));
-			});
+			clients
+				.filter(isPilot)
+				.forEach((cli) => {
+					cli.connec.send(JSON.stringify(getDrones()));
+				});
 		}
 	});
 });
 
 const getDrones = function () {
-	return drones.map((drone) => {
-		return {
-			id: drone.id,
-			name: drone.name
-		}
-	});
+	return clients
+		.filter(isMovable)
+		.map((drone) => {
+			return {
+				id: drone.id,
+				name: drone.name
+			}
+		});
+};
+
+const isPilot = function (item) {
+	return item.type === 'PILOT';
+};
+
+const isMovable = function (item) {
+	return !isPilot(item);
 };
 
 /**

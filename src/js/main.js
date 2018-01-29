@@ -30,7 +30,7 @@ ws.onmessage = (event) => {
 };
 ws.onopen = function (event) {
 	ws.send(JSON.stringify({
-		type: 'CLIENT'
+		type: 'PILOT'
 	}));
 };
 
