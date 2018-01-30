@@ -4,6 +4,13 @@ var renderItem = function (item) {
 	`;
 };
 
+var askForPeerCo = function (event) {
+	const $elm = event.currentTarget,
+		id = $elm.dataset.id;
+
+	console.log('Click on ', id);
+};
+
 // Affichage des drones sur le DOM
 var elm = document.createElement('ul');
 document.body.append(elm);
@@ -16,12 +23,11 @@ ws.onmessage = (event) => {
 	elm.innerHTML = '';
 
 	drones.map(item => {
-		if (!document.querySelector(`#${item.id}`)) {
-			let li = document.createElement('li');
-			li.id = item.id;
-			li.innerHTML = renderItem(item);
-			elm.append(li);
-		}
+		let li = document.createElement('li');
+		li.dataset.id = item.id;
+		li.innerHTML = renderItem(item);
+		li.addEventListener('click', askForPeerCo);
+		elm.append(li);
 	});
 };
 ws.onopen = function (event) {
