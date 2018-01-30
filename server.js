@@ -45,9 +45,8 @@ app.get('/api/drones', (req, res) => {
  * ```
  */
 wsServer.on('request', function (req) {
-	console.info('New websocket connection !');
-
 	let connec = req.accept('echo-protocol', req.origin);
+
 	connec.on('message', function(message) {
 		if (message.type === 'utf8') {
 			let json = JSON.parse(message.utf8Data);
@@ -58,7 +57,7 @@ wsServer.on('request', function (req) {
 			}));
 
 			if (json.type === 'PILOT') {
-				connec.send(JSON.stringify(clients.filter(isMovable)));
+				connec.send(JSON.stringify(getDrones()));
 			} else if (json.type === 'DRONE') {
 				clients
 					.filter(isPilot)
@@ -70,11 +69,11 @@ wsServer.on('request', function (req) {
 	});
 
 	connec.on('close', function(reasonCode, description) {
-		const drone = clients
+		const client = clients
 			.find(item => {
 				return item.connec === connec;
 			});
-		const index = clients.indexOf(drone);
+		const index = clients.indexOf(client);
 
 		if (index !== -1) {
 			clients.splice(index, 1);
@@ -91,12 +90,13 @@ wsServer.on('request', function (req) {
 const getDrones = function () {
 	return clients
 		.filter(isMovable)
-		.map((drone) => {
-			return {
-				id: drone.id,
-				name: drone.name
-			}
-		});
+		.map(unCircularClient);
+};
+
+const unCircularClient = function (client) {
+	return Object.assign({}, client, {
+		connec: undefined
+	});
 };
 
 const isPilot = function (item) {
