@@ -1,7 +1,8 @@
 const path = require('path'),
 	express = require('express'),
 	http = require('http'),
-	WebSocketServer = require('websocket').server;
+	WebSocketServer = require('websocket').server,
+	uuidV1 = require('uuid/v1');
 
 let app = express(),
 	server = http.createServer(app),
@@ -52,7 +53,8 @@ wsServer.on('request', function (req) {
 			let json = JSON.parse(message.utf8Data);
 
 			clients.push(Object.assign(json, {
-				connec
+				connec,
+				id: uuidV1()
 			}));
 
 			if (json.type === 'PILOT') {

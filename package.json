@@ -27,6 +27,7 @@
     "material-components-web": "^0.25.0",
     "mithril": "^1.1.5",
     "node-wifi": "^1.2.5",
+    "uuid": "^3.2.1",
     "websocket": "^1.0.24",
     "wrtc": "0.0.62",
     "zen-observable": "^0.6.0"
