@@ -8,7 +8,11 @@ var askForPeerCo = function (event) {
 	const $elm = event.currentTarget,
 		id = $elm.dataset.id;
 
-	console.log('Click on ', id);
+	ws.send(JSON.stringify({
+		type: 'PILOT',
+		action: 'LOGIN',
+		droneId: id
+	}));
 };
 
 // Affichage des drones sur le DOM

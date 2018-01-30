@@ -51,14 +51,31 @@ wsServer.on('request', function (req) {
 		if (message.type === 'utf8') {
 			let json = JSON.parse(message.utf8Data);
 
-			clients.push(Object.assign(json, {
-				connec,
-				id: uuidV1()
-			}));
-
 			if (json.type === 'PILOT') {
-				connec.send(JSON.stringify(getDrones()));
+				if (json.action === 'LOGIN') {
+					const drone = clients
+						.filter(isMovable)
+						.find(item => {
+							return item.id === json.droneId;
+						});
+
+					if (drone) {
+						console.log('Connection with,', drone.name);
+					}
+				} else {
+					clients.push(Object.assign(json, {
+						connec,
+						id: uuidV1()
+					}));
+
+					connec.send(JSON.stringify(getDrones()));
+				}
 			} else if (json.type === 'DRONE') {
+				clients.push(Object.assign(json, {
+					connec,
+					id: uuidV1()
+				}));
+
 				clients
 					.filter(isPilot)
 					.forEach((cli) => {
