@@ -1,7 +1,3 @@
-import test from './test.js';
-import PersonneModel from './PersonneModel.js';
-import ObservableCollection from './ObservableCollection.js';
-
 var renderItem = function (item) {
 	return `
 		<p>${item.name}</p>
@@ -33,23 +29,3 @@ ws.onopen = function (event) {
 		type: 'PILOT'
 	}));
 };
-
-// create an observer instance
-var observer = new MutationObserver(function(mutations) {
-	mutations.forEach(function(mutation) {
-		console.log(mutation);
-	});
-});
-
-// configuration of the observer:
-var config = {
-	attributes: true,
-	childList: true,
-	characterData: true
-};
-
-// pass in the target node, as well as the observer options
-observer.observe(elm, config);
-
-// later, you can stop observing
-//observer.disconnect();
