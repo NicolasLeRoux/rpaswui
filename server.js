@@ -28,14 +28,6 @@ app.get('/node_modules/**/*', (req, res) => {
 });
 
 /**
- * Web services
- */
-app.get('/api/drones', (req, res) => {
-	res.setHeader('Content-Type', 'application/json');
-	res.send(JSON.stringify(drones));
-});
-
-/**
  * Serveur pour les WebSockets.
  *
  * Exemple de code client:
