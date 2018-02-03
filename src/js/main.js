@@ -4,15 +4,13 @@ var renderItem = function (item) {
 	`;
 };
 
+let peerCo;
+
 var askForPeerCo = function (event) {
 	const $elm = event.currentTarget,
 		id = $elm.dataset.id;
 
-	ws.send(JSON.stringify({
-		type: 'PILOT',
-		action: 'INIT_PEER_CO',
-		remoteId: id
-	}));
+	initPeerCo(id);
 };
 
 // Affichage des drones sur le DOM
@@ -21,22 +19,100 @@ document.body.append(elm);
 
 let ws = new WebSocket('ws://localhost:3000', 'echo-protocol');
 ws.onmessage = (event) => {
-	let drones = JSON.parse(event.data);
+	let json = JSON.parse(event.data);
 
-	// RAZ
-	elm.innerHTML = '';
+	switch (json.action) {
+		case 'UPDATE_REMOTE':
+			let drones = json.drones;
 
-	drones.map(item => {
-		let li = document.createElement('li');
-		li.dataset.id = item.id;
-		li.innerHTML = renderItem(item);
-		li.addEventListener('click', askForPeerCo);
-		elm.append(li);
-	});
+			// RAZ
+			elm.innerHTML = '';
+
+			drones.map(item => {
+				let li = document.createElement('li');
+				li.dataset.id = item.id;
+				li.innerHTML = renderItem(item);
+				li.addEventListener('click', askForPeerCo);
+				elm.append(li);
+			});
+			break;
+		case 'RTC_ICE_CANDIDATE':
+			console.log('RTC_ICE_CANDIDATE');
+			break;
+		default:
+			console.error('Undefined action...');
+	}
+
+
 };
 ws.onopen = function (event) {
 	ws.send(JSON.stringify({
 		type: 'PILOT',
 		action: 'INIT_SOCKET'
 	}));
+};
+
+const initPeerCo = function (remoteId) {
+	peerCo = new RTCPeerConnection();
+
+	let commandChannel = peerCo.createDataChannel('command', {
+		// UPD Semantics
+		ordered: false,
+		maxRetransmits: 0
+	});
+
+	commandChannel.onopen = function () {
+		console.info('Command channel opened.');
+		commandChannel.send('Client: Mon super message !');
+	};
+	commandChannel.onclose = function () {
+		console.info('Command channel closed.');
+	};
+
+	peerCo.ondatachannel = function (event) {
+		console.info('Client get data channel', event);
+
+		var channel = event.channel,
+			imgElm = document.querySelector('img');
+
+		// Réception des images !
+		channel.onmessage = function (e) {
+			imgElm.src = 'data:image/png;base64,' + e.data;
+		};
+		channel.onopen = function () {
+			console.info('Video channel on open.');
+		};
+		channel.onclose = function () {
+			console.info('Video channel on close.');
+		};
+	};
+
+	peerCo.onicecandidate = function (event) {
+		console.info('Client on ICE candidate', event);
+
+		if (event.candidate) {
+			ws.send(JSON.stringify({
+				type: 'PILOT',
+				action: 'RTC_ICE_CANDIDATE',
+				candidate: event.candidate,
+				remoteId
+			}));
+		}
+	};
+
+	peerCo.createOffer()
+		.then(offerDesc => {
+			console.info('Set server local description from offer: ', offerDesc);
+
+			return peerCo.setLocalDescription(offerDesc);
+		}).then(() => {
+			console.info('Set client remote desc from server offer');
+
+			ws.send(JSON.stringify({
+				type: 'PILOT',
+				action: 'INIT_PEER_CO',
+				localDescription: peerCo.localDescription,
+				remoteId
+			}));
+		});
 };

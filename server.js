@@ -48,20 +48,22 @@ wsServer.on('request', function (req) {
 	});
 
 	connec.on('close', function(reasonCode, description) {
-		const client = clients
-			.find(item => {
-				return item.connec === connec;
-			});
-		const index = clients.indexOf(client);
+		const local = findLocal(connec);
+		const index = clients.indexOf(local);
 
 		if (index !== -1) {
 			clients.splice(index, 1);
 
-			clients
-				.filter(isPilot)
-				.forEach((cli) => {
-					cli.connec.send(JSON.stringify(getDrones()));
-				});
+			if (local.type !== 'PILOT') {
+				clients
+					.filter(isPilot)
+					.forEach((cli) => {
+						cli.connec.send(JSON.stringify({
+							action: 'UPDATE_REMOTE',
+							drones: getDrones()
+						}));
+					});
+			}
 		}
 	});
 });
@@ -87,6 +89,8 @@ const isMovable = function (item) {
 };
 
 const processSocketMessage = function (json, connec) {
+	let remote, local;
+
 	switch (json.action) {
 		case 'INIT_SOCKET':
 			clients.push(Object.assign(json, {
@@ -98,24 +102,49 @@ const processSocketMessage = function (json, connec) {
 				clients
 					.filter(isPilot)
 					.forEach((cli) => {
-						cli.connec.send(JSON.stringify(getDrones()));
+						cli.connec.send(JSON.stringify({
+							action: 'UPDATE_REMOTE',
+							drones: getDrones()
+						}));
 					});
 			}
 			break;
 		case 'INIT_PEER_CO':
-			const remote = clients
-				.filter(isMovable)
-				.find(item => {
-					return item.id === json.remoteId;
-				});
+			remote = findRemote(json.remoteId);
+			local = findLocal(connec);
 
 			if (remote) {
 				console.log('Connection with,', remote.name);
+				remote.connec.send(JSON.stringify(Object.assign(json, {
+					remoteId: local.id
+				})));
 			}
 			break;
+		case 'RTC_ICE_CANDIDATE':
+			remote = findRemote(json.remoteId);
+			local = findLocal(connec);
+
+			remote.connec.send(JSON.stringify(Object.assign(json, {
+				remoteId: local.id
+			})));
+			break;
 		default:
-		console.error('Undefined action...');
+			console.error('Undefined action...');
 	}
+}
+
+const findRemote = function (id) {
+	return clients
+		.find(item => {
+			return item.id === id;
+		});
+}
+
+const findLocal = function (connec) {
+	return clients
+		.find(item => {
+			return item.connec === connec;
+		});
 }
 
 /**
