@@ -43,37 +43,7 @@ wsServer.on('request', function (req) {
 		if (message.type === 'utf8') {
 			let json = JSON.parse(message.utf8Data);
 
-			if (json.type === 'PILOT') {
-				if (json.action === 'LOGIN') {
-					const drone = clients
-						.filter(isMovable)
-						.find(item => {
-							return item.id === json.droneId;
-						});
-
-					if (drone) {
-						console.log('Connection with,', drone.name);
-					}
-				} else {
-					clients.push(Object.assign(json, {
-						connec,
-						id: uuidV1()
-					}));
-
-					connec.send(JSON.stringify(getDrones()));
-				}
-			} else if (json.type === 'DRONE') {
-				clients.push(Object.assign(json, {
-					connec,
-					id: uuidV1()
-				}));
-
-				clients
-					.filter(isPilot)
-					.forEach((cli) => {
-						cli.connec.send(JSON.stringify(getDrones()));
-					});
-			}
+			processSocketMessage(json, connec);
 		}
 	});
 
@@ -115,6 +85,38 @@ const isPilot = function (item) {
 const isMovable = function (item) {
 	return !isPilot(item);
 };
+
+const processSocketMessage = function (json, connec) {
+	switch (json.action) {
+		case 'INIT_SOCKET':
+			clients.push(Object.assign(json, {
+				connec,
+				id: uuidV1()
+			}));
+
+			if (json.type === 'DRONE') {
+				clients
+					.filter(isPilot)
+					.forEach((cli) => {
+						cli.connec.send(JSON.stringify(getDrones()));
+					});
+			}
+			break;
+		case 'INIT_PEER_CO':
+			const remote = clients
+				.filter(isMovable)
+				.find(item => {
+					return item.id === json.remoteId;
+				});
+
+			if (remote) {
+				console.log('Connection with,', remote.name);
+			}
+			break;
+		default:
+		console.error('Undefined action...');
+	}
+}
 
 /**
  * Démarrage du serveur

@@ -10,8 +10,8 @@ var askForPeerCo = function (event) {
 
 	ws.send(JSON.stringify({
 		type: 'PILOT',
-		action: 'LOGIN',
-		droneId: id
+		action: 'INIT_PEER_CO',
+		remoteId: id
 	}));
 };
 
@@ -36,6 +36,7 @@ ws.onmessage = (event) => {
 };
 ws.onopen = function (event) {
 	ws.send(JSON.stringify({
-		type: 'PILOT'
+		type: 'PILOT',
+		action: 'INIT_SOCKET'
 	}));
 };
