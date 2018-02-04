@@ -1,6 +1,8 @@
 var renderItem = function (item) {
 	return `
-		<p>${item.name}</p>
+		<td>${item.name}</td>
+		<td>48°52′51.118″N/2°16′1.032″E</td>
+		<td>Online</td>
 	`;
 };
 
@@ -14,8 +16,7 @@ var askForPeerCo = function (event) {
 };
 
 // Affichage des drones sur le DOM
-var elm = document.createElement('ul');
-document.body.append(elm);
+var elm = document.querySelector('.aircraft-list');
 
 let ws = new WebSocket('ws://localhost:3000', 'echo-protocol');
 ws.onmessage = (event) => {
@@ -29,11 +30,11 @@ ws.onmessage = (event) => {
 			elm.innerHTML = '';
 
 			drones.map(item => {
-				let li = document.createElement('li');
-				li.dataset.id = item.id;
-				li.innerHTML = renderItem(item);
-				li.addEventListener('click', askForPeerCo);
-				elm.append(li);
+				let wrapElm = document.createElement('tr');
+				wrapElm.dataset.id = item.id;
+				wrapElm.innerHTML = renderItem(item);
+				wrapElm.addEventListener('click', askForPeerCo);
+				elm.append(wrapElm);
 			});
 			break;
 		case 'INIT_PEER_CO':
