@@ -114,7 +114,6 @@ const processSocketMessage = function (json, connec) {
 			local = findLocal(connec);
 
 			if (remote) {
-				console.log('Connection with,', remote.name);
 				remote.connec.send(JSON.stringify(Object.assign(json, {
 					remoteId: local.id
 				})));

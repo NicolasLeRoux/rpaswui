@@ -36,11 +36,24 @@ ws.onmessage = (event) => {
 				elm.append(li);
 			});
 			break;
+		case 'INIT_PEER_CO':
+			peerCo.setRemoteDescription(new RTCSessionDescription(json.remoteDescription))
+				.then(() => {
+					console.info('WebRTC ready.');
+				});
+			break;
 		case 'RTC_ICE_CANDIDATE':
-			console.log('RTC_ICE_CANDIDATE');
+			peerCo.addIceCandidate(json.candidate)
+				.then(() => {
+					console.info('Adding ICE candidate success ! Info: ', json.candidate);
+				}).catch(error => {
+					console.warn('ICE candidate error: ', error);
+				});
 			break;
 		default:
-			console.error('Undefined action...');
+			console.error('Undefined action...', {
+				action: json.action
+			});
 	}
 
 
@@ -111,7 +124,7 @@ const initPeerCo = function (remoteId) {
 			ws.send(JSON.stringify({
 				type: 'PILOT',
 				action: 'INIT_PEER_CO',
-				localDescription: peerCo.localDescription,
+				remoteDescription: peerCo.localDescription,
 				remoteId
 			}));
 		});
