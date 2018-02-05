@@ -11,14 +11,18 @@
 <body>
 	<rpas-socket></rpas-socket>
 
-	<rpas-router>
+	<rpas-router data-route="/home">
 		<template>
-			<div>
+			<div data-route="/home">
 				<!--
 				Ici, le composant `TestComponent` est chargé dynamiquement.
 				-->
 				<script type="module" src="src/js/components/test.component.js"></script>
 				<rpas-test></rpas-test>
+				<h1>/home</h1>
+			</div>
+			<div data-route="/about">
+				<h1>/about</h1>
 			</div>
 		</template>
 	</rpas-router>
