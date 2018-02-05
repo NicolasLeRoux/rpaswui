@@ -135,6 +135,6 @@ const initPeerCo = function (remoteId) {
 };
 
 var elmSocket = document.querySelector('rpas-socket');
-elmSocket.addEventListener('look', (event) => {
+elmSocket.addEventListener('message', (event) => {
 	console.log(event.detail);
 });

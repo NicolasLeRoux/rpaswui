@@ -16,20 +16,23 @@ export class SocketComponent extends HTMLElement {
 	}
 
 	onOpenSocket () {
-		this.ws.send(JSON.stringify({
+		this.send({
 			type: 'PILOT',
 			action: 'INIT_SOCKET'
-		}));
-
-		var evt = new CustomEvent('look', {
-			detail: {
-				name: 'Pierre'
-			}
 		});
-		this.dispatchEvent(evt);
 	}
 
 	onMessageSocket () {
+		let json = JSON.parse(event.data),
+			evt = new CustomEvent('message', {
+				detail: json
+			});
+
+		this.dispatchEvent(evt);
+	}
+
+	send (json) {
+		this.ws.send(JSON.stringify(json));
 	}
 
 	/**
@@ -43,11 +46,12 @@ export class SocketComponent extends HTMLElement {
 	 * Invoked when the custom element is disconnected from the document's DOM.
 	 */
 	disconnectedCallback () {
+		this.ws.close();
 	}
 
 	get ws () {
 		if (!this._ws) {
-			this._ws = new WebSocket('ws://localhost:3000', 'echo-protocol');
+			this._ws = new WebSocket(this.dataset.url, this.dataset.protocol);
 		}
 		return this._ws;
 	}
