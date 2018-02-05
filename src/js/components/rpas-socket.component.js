@@ -21,11 +21,11 @@ export class SocketComponent extends HTMLElement {
 			action: 'INIT_SOCKET'
 		}));
 
-		// TODO tmp
-		this.data = {
-			name: 'Pierre'
-		};
-		var evt = new Event('look');
+		var evt = new CustomEvent('look', {
+			detail: {
+				name: 'Pierre'
+			}
+		});
 		this.dispatchEvent(evt);
 	}
 
@@ -50,14 +50,6 @@ export class SocketComponent extends HTMLElement {
 			this._ws = new WebSocket('ws://localhost:3000', 'echo-protocol');
 		}
 		return this._ws;
-	}
-
-	get data () {
-		return this._data;
-	}
-
-	set data (data) {
-		this._data = data;
 	}
 };
 
