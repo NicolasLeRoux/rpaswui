@@ -1,4 +1,5 @@
-import { SocketComponent } from './components/rpas-socket.component.js';
+import { SocketComponent } from './components/socket.component.js';
+import { RouterComponent } from './components/router.component.js';
 
 var renderItem = function (item) {
 	return `
