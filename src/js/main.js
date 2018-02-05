@@ -1,3 +1,5 @@
+import { SocketComponent } from './components/rpas-socket.component.js';
+
 var renderItem = function (item) {
 	return `
 		<td>${item.name}</td>
@@ -130,3 +132,8 @@ const initPeerCo = function (remoteId) {
 			}));
 		});
 };
+
+var elmSocket = document.querySelector('rpas-socket');
+elmSocket.addEventListener('look', (event) => {
+    console.log(event.currentTarget.data);
+});
