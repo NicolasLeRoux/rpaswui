@@ -134,7 +134,20 @@ const initPeerCo = function (remoteId) {
 		});
 };
 
+/**
+ * TODO Sample about how to use socket element !
+ */
 var elmSocket = document.querySelector('rpas-socket');
 elmSocket.addEventListener('message', (event) => {
 	console.log(event.detail);
 });
+
+/**
+ * TODO Improve this...
+ */
+window.route = function (route) {
+	let routeElm = document.querySelector('rpas-router');
+
+	routeElm.dataset.route = route;
+	history.pushState(null, null, route);
+};

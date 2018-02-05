@@ -4,6 +4,7 @@
 <head>
 	<title>RPASWUI</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+	<base href="/">
 	<link type="text/css" rel="stylesheet" href="src/style/lit.css">
 	<script type="module" src="src/js/main.js"></script>
 </head>
@@ -12,18 +13,21 @@
 	<rpas-socket data-url="ws://localhost:3000"
 		data-protocol="echo-protocol"></rpas-socket>
 
-	<rpas-router data-route="/home">
+	<rpas-router data-route="/">
 		<template>
+			<div data-route="/login">
+				<h1>Login</h1>
+			</div>
 			<div data-route="/home">
+				<h1>Home</h1>
 				<!--
 				Ici, le composant `TestComponent` est chargé dynamiquement.
 				-->
 				<script type="module" src="src/js/components/test.component.js"></script>
 				<rpas-test></rpas-test>
-				<h1>/home</h1>
 			</div>
 			<div data-route="/about">
-				<h1>/about</h1>
+				<h1>About</h1>
 			</div>
 		</template>
 	</rpas-router>
@@ -34,12 +38,14 @@
 		</div>
 		<hr>
 		<div class="row card">
-			<div class="4 col">
-				<a href="#">Login</a>
+			<div class="4 col test">
+				<a onclick="route('/login')">Login</a>
 			</div>
-			<b class="4 col">Aircraft List</b>
 			<div class="4 col">
-				<a href="#">About</a>
+				<a onclick="route('/home')">Aircraft List</a>
+			</div>
+			<div class="4 col">
+				<a onclick="route('/about')">About</a>
 			</div>
 		</div>
 		<div class="row">
