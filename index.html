@@ -10,6 +10,19 @@
 
 <body>
 	<rpas-socket></rpas-socket>
+
+	<rpas-router>
+		<template>
+			<div>
+				<!--
+				Ici, le composant `TestComponent` est chargé dynamiquement.
+				-->
+				<script type="module" src="src/js/components/test.component.js"></script>
+				<rpas-test></rpas-test>
+			</div>
+		</template>
+	</rpas-router>
+
 	<div class="c">
 		<div class="row">
 			<h1>Remotely Piloted Aircraft System from a Web User Interface</h1>
