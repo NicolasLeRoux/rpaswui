@@ -19,12 +19,10 @@ export class SocketComponent extends HTMLElement {
 	}
 
 	onOpenSocket () {
-        this.isOpen = true;
+        let evt = new CustomEvent('open');
+		this.dispatchEvent(evt);
 
-		this.send({
-			type: 'PILOT',
-			action: 'INIT_SOCKET'
-		});
+        this.isOpen = true;
 	}
 
 	onMessageSocket () {
@@ -37,6 +35,9 @@ export class SocketComponent extends HTMLElement {
 	}
 
     onCloseSocket () {
+        let evt = new CustomEvent('close');
+		this.dispatchEvent(evt);
+
         this.isOpen = false;
     }
 
