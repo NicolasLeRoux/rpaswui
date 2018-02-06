@@ -5,6 +5,8 @@ export class SocketComponent extends HTMLElement {
 
 	constructor () {
 		super();
+
+        this.isOpen = false;
 	}
 
 	/**
@@ -13,9 +15,12 @@ export class SocketComponent extends HTMLElement {
 	connectedCallback () {
 		this.ws.onopen = this.onOpenSocket.bind(this);
 		this.ws.onmessage = this.onMessageSocket.bind(this);
+        this.ws.onclose = this.onCloseSocket.bind(this);
 	}
 
 	onOpenSocket () {
+        this.isOpen = true;
+
 		this.send({
 			type: 'PILOT',
 			action: 'INIT_SOCKET'
@@ -30,6 +35,10 @@ export class SocketComponent extends HTMLElement {
 
 		this.dispatchEvent(evt);
 	}
+
+    onCloseSocket () {
+        this.isOpen = false;
+    }
 
 	send (json) {
 		this.ws.send(JSON.stringify(json));
@@ -55,6 +64,14 @@ export class SocketComponent extends HTMLElement {
 		}
 		return this._ws;
 	}
+
+    get isOpen () {
+        return this._isOpen;
+    }
+
+    set isOpen (boolean) {
+        this._isOpen = !!boolean;
+    }
 };
 
 customElements.define(SocketComponent.name, SocketComponent);
