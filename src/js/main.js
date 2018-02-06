@@ -21,9 +21,9 @@ var askForPeerCo = function (event) {
 // Affichage des drones sur le DOM
 var elm = document.querySelector('.aircraft-list');
 
-let ws = new WebSocket('ws://localhost:3000', 'echo-protocol');
-ws.onmessage = (event) => {
-	let json = JSON.parse(event.data);
+var elmSocket = document.querySelector('rpas-socket');
+elmSocket.addEventListener('message', (event) => {
+	let json = event.detail;
 
 	switch (json.action) {
 		case 'UPDATE_REMOTE':
@@ -59,15 +59,7 @@ ws.onmessage = (event) => {
 				action: json.action
 			});
 	}
-
-
-};
-ws.onopen = function (event) {
-	ws.send(JSON.stringify({
-		type: 'PILOT',
-		action: 'INIT_SOCKET'
-	}));
-};
+});
 
 const initPeerCo = function (remoteId) {
 	peerCo = new RTCPeerConnection();
@@ -108,12 +100,12 @@ const initPeerCo = function (remoteId) {
 		console.info('Client on ICE candidate', event);
 
 		if (event.candidate) {
-			ws.send(JSON.stringify({
+			elmSocket.send({
 				type: 'PILOT',
 				action: 'RTC_ICE_CANDIDATE',
 				candidate: event.candidate,
 				remoteId
-			}));
+			});
 		}
 	};
 
@@ -125,22 +117,14 @@ const initPeerCo = function (remoteId) {
 		}).then(() => {
 			console.info('Set client remote desc from server offer');
 
-			ws.send(JSON.stringify({
+			elmSocket.send({
 				type: 'PILOT',
 				action: 'INIT_PEER_CO',
 				remoteDescription: peerCo.localDescription,
 				remoteId
-			}));
+			});
 		});
 };
-
-/**
- * TODO Sample about how to use socket element !
- */
-var elmSocket = document.querySelector('rpas-socket');
-elmSocket.addEventListener('message', (event) => {
-	console.log(event.detail);
-});
 
 /**
  * TODO Improve this...
