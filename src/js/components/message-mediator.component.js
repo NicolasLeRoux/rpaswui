@@ -12,7 +12,24 @@ export class MessageMediatorComponent extends HTMLElement {
 	}
 
 	onMessage (event) {
-		console.log(event);
+		let message = event.detail,
+			$recipient;
+
+		if (message.recipient) {
+			$recipient = this.querySelector(message.recipient);
+
+			if ($recipient) {
+				if ($recipient.receive) {
+					$recipient.receive(message);
+				} else {
+					console.warn(`Recipient '${message.recipient}' do not implement 'receive' method. Message:`, message);
+				}
+			} else {
+				console.warn(`Recipient '${message.recipient}' do not found on childs. Message:`, message);
+			}
+		} else {
+			console.warn('No recipient for current message. Message:', message);
+		}
 	}
 };
 
