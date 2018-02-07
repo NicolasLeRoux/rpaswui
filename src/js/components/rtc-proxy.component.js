@@ -8,7 +8,29 @@ export class RTCProxyComponent extends HTMLElement {
 	}
 
 	connectedCallback () {
-		// TODO
+		this.querySelector('rpas-rtc')
+			.addEventListener('message', this.onMessage.bind(this));
+	}
+
+	onMessage (event) {
+		let data = event.detail,
+			actionToSendToSocket = [
+				'RTC_ICE_CANDIDATE',
+				'INIT_PEER_CO'
+			];
+
+		if (actionToSendToSocket.includes(data.action)) {
+			let newData = Object.assign({}, data, {
+					recipient: 'rpas-socket'
+				}),
+				evt = new CustomEvent('message', {
+					bubbles: true,
+					detail: newData
+				});
+
+			event.stopPropagation();
+			this.dispatchEvent(evt);
+		}
 	}
 };
 
