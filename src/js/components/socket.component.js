@@ -46,10 +46,6 @@ export class SocketComponent extends HTMLElement {
 		this.isOpen = false;
 	}
 
-	send (json) {
-		this.ws.send(JSON.stringify(json));
-	}
-
 	receive (message) {
 		this.ws.send(JSON.stringify(message));
 	}
