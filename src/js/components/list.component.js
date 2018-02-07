@@ -8,11 +8,25 @@ export class ListComponent extends HTMLElement {
 	}
 
 	connectedCallback () {
-		console.log('List');
+		// TODO
 	}
 
-	receive () {
-		console.warn('TODO: Implement method !');
+	receive (message) {
+		let drones = message.drones;
+
+		this.innerHTML = ""; // RAZ
+		drones.forEach(this.appendDrone.bind(this));
+	}
+
+	appendDrone (drone) {
+		let wrapElm = document.createElement('div');
+
+		wrapElm.dataset.id = drone.id;
+		wrapElm.innerHTML = `
+			<p>${drone.name}</p>
+		`;
+
+		this.append(wrapElm);
 	}
 };
 
