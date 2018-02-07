@@ -8,7 +8,22 @@ export class StartComponent extends HTMLElement {
 	}
 
 	connectedCallback () {
-		console.log('Start');
+		let $btn = this.querySelector('button');
+
+		$btn.addEventListener('click', this.onClickButton.bind(this));
+	}
+
+	onClickButton (event) {
+		let evt = new CustomEvent('message', {
+			bubbles: true,
+			detail: {
+				action: 'INIT_SOCKET',
+				recipient: 'rpas-socket',
+				type: 'PILOT'
+			}
+		});
+
+		this.dispatchEvent(evt);
 	}
 };
 

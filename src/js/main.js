@@ -5,14 +5,7 @@ import { MessageMediatorComponent } from './components/message-mediator.componen
 import { RTCComponent } from './components/rtc.component.js';
 import { RTCProxyComponent } from './components/rtc-proxy.component.js';
 import { DroneListComponent } from './components/drone-list.component.js';
-
-var elmSocket = document.querySelector('rpas-socket');
-elmSocket.addEventListener('open', (event) => {
-	elmSocket.send({
-		type: 'PILOT',
-		action: 'INIT_SOCKET'
-	});
-});
+import { StartComponent } from './components/start.component.js';
 
 /**
  * TODO Improve this...
