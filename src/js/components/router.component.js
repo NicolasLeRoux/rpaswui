@@ -14,7 +14,7 @@ export class RouterComponent extends HTMLElement {
 	}
 
 	connectedCallback () {
-		Array.prototype.forEach.call(document.querySelectorAll('[data-router-target]'), (item) => {
+		document.querySelectorAll('[data-router-target]').forEach((item) => {
 			item.onclick = () => {
 				this.onRouteChange(this.dataset.route, item.dataset.routerTarget);
 				this.dataset.route = item.dataset.routerTarget;
