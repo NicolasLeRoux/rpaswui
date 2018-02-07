@@ -12,8 +12,28 @@ export class RTCComponent extends HTMLElement {
 	}
 
 	receive (message) {
-		if (message.action === 'START_PEER_COMMUNICATION') {
-			this.start(message.data.remoteId);
+		switch (message.action) {
+			case 'START_PEER_COMMUNICATION':
+				this.start(message.data.remoteId);
+				break;
+			case 'INIT_PEER_CO':
+				this.peerCo.setRemoteDescription(new RTCSessionDescription(message.remoteDescription))
+					.then(() => {
+						console.info('WebRTC ready.');
+					});
+				break;
+			case 'RTC_ICE_CANDIDATE':
+				this.peerCo.addIceCandidate(message.candidate)
+					.then(() => {
+						console.info('Adding ICE candidate success ! Info: ', message.candidate);
+					}).catch(error => {
+						console.warn('ICE candidate error: ', error);
+					});
+				break;
+			default:
+				console.error('Undefined action...', {
+					action: message.action
+				});
 		}
 	}
 
