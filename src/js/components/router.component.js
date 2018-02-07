@@ -13,6 +13,14 @@ export class RouterComponent extends HTMLElement {
 		super();
 	}
 
+	connectedCallback () {
+		console.debug('Initializing Router')
+		window.route = function (route) {
+			this.dataset.route = route;
+			history.pushState(null, null, route);
+		};
+	}
+
 	attributeChangedCallback(name, oldValue, newValue) {
 		switch (name) {
 			case 'data-route':
