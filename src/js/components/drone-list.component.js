@@ -12,10 +12,18 @@ export class DroneListComponent extends HTMLElement {
 	}
 
 	receive (message) {
-		let drones = message.drones;
+		switch (message.action) {
+			case 'UPDATE_REMOTE':
+				let drones = message.drones;
 
-		this.innerHTML = ""; // RAZ
-		drones.forEach(this.appendDrone.bind(this));
+				this.innerHTML = ""; // RAZ
+				drones.forEach(this.appendDrone.bind(this));
+				break;
+			default:
+				console.error('Undefined action...', {
+					action: message.action
+				});
+		}
 	}
 
 	appendDrone (drone) {
