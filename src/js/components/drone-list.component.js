@@ -1,6 +1,6 @@
-export class ListComponent extends HTMLElement {
+export class DroneListComponent extends HTMLElement {
 	static get name () {
-		return 'rpas-list';
+		return 'rpas-drone-list';
 	}
 
 	constructor () {
@@ -25,9 +25,14 @@ export class ListComponent extends HTMLElement {
 		wrapElm.innerHTML = `
 			<p>${drone.name}</p>
 		`;
+		wrapElm.addEventListener('click', this.onClickDrone.bind(this));
 
 		this.append(wrapElm);
 	}
+
+	onClickDrone (event) {
+		console.log(event);
+	}
 };
 
-customElements.define(ListComponent.name, ListComponent);
+customElements.define(DroneListComponent.name, DroneListComponent);

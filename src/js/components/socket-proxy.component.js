@@ -17,7 +17,7 @@ export class SocketProxyComponent extends HTMLElement {
 
 		if (data.action === 'UPDATE_REMOTE') {
 			let newData = Object.assign({}, data, {
-					recipient: 'rpas-list.drones'
+					recipient: 'rpas-drone-list'
 				}),
 				evt = new CustomEvent('message', {
 					bubbles: true,
