@@ -107,6 +107,11 @@ const processSocketMessage = function (json, connec) {
 							drones: getDrones()
 						}));
 					});
+			} else if (json.type === 'PILOT') {
+				connec.send(JSON.stringify({
+					action: 'UPDATE_REMOTE',
+					drones: getDrones()
+				}));
 			}
 			break;
 		case 'INIT_PEER_CO':
