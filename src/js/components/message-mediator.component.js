@@ -15,6 +15,8 @@ export class MessageMediatorComponent extends HTMLElement {
 		let message = event.detail,
 			$recipient;
 
+		event.stopPropagation();
+
 		if (message.recipient) {
 			$recipient = this.querySelector(message.recipient);
 
