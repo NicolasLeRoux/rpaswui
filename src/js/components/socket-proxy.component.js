@@ -1,4 +1,6 @@
-export class SocketProxyComponent extends HTMLElement {
+import { ProxyComponent } from './proxy.component.js';
+
+export class SocketProxyComponent extends ProxyComponent {
 	static get name () {
 		return 'rpas-socket-proxy';
 	}

@@ -1,4 +1,6 @@
-export class RTCProxyComponent extends HTMLElement {
+import { ProxyComponent } from './proxy.component.js';
+
+export class RTCProxyComponent extends ProxyComponent {
 	static get name () {
 		return 'rpas-rtc-proxy';
 	}
