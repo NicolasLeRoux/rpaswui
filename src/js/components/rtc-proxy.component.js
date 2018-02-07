@@ -8,7 +8,7 @@ export class RTCProxyComponent extends HTMLElement {
 	}
 
 	connectedCallback () {
-		console.log('RTC Proxy');
+		// TODO
 	}
 };
 

@@ -31,7 +31,21 @@ export class DroneListComponent extends HTMLElement {
 	}
 
 	onClickDrone (event) {
-		console.log(event);
+		let $elm = event.currentTarget,
+			remoteId = $elm.dataset.id,
+			json = {
+				action: 'START_PEER_COMMUNICATION',
+				recipient: 'rpas-rtc',
+				data: {
+					remoteId
+				}
+			},
+			evt = new CustomEvent('message', {
+				bubbles: true,
+				detail: json
+			});
+
+		this.dispatchEvent(evt);
 	}
 };
 
