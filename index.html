@@ -10,66 +10,68 @@
 </head>
 
 <body>
-	<rpas-socket data-url="ws://localhost:3000"
-		data-protocol="echo-protocol"></rpas-socket>
+    <rpas-message-mediator>
+        <rpas-socket data-url="ws://localhost:3000"
+            data-protocol="echo-protocol"></rpas-socket>
 
-	<rpas-router data-route="/">
-		<template>
-			<div data-route="/login">
-				<h1>Login</h1>
-			</div>
-			<div data-route="/home">
-				<script type="module" src="src/js/components/home.component.js"></script>
-                <rpas-home>
-                    <h1>Home</h1>
-                </rpas-home>
-			</div>
-			<div data-route="/about">
-				<h1>About</h1>
-				<!--
-				Ici, le composant `TestComponent` est chargé dynamiquement.
-				-->
-				<script type="module" src="src/js/components/test.component.js"></script>
-				<rpas-test></rpas-test>
-			</div>
-		</template>
-	</rpas-router>
+        <rpas-router data-route="/">
+            <template>
+                <div data-route="/login">
+                    <h1>Login</h1>
+                </div>
+                <div data-route="/home">
+                    <script type="module" src="src/js/components/home.component.js"></script>
+                    <rpas-home>
+                        <h1>Home</h1>
+                    </rpas-home>
+                </div>
+                <div data-route="/about">
+                    <h1>About</h1>
+                    <!--
+                    Ici, le composant `TestComponent` est chargé dynamiquement.
+                    -->
+                    <script type="module" src="src/js/components/test.component.js"></script>
+                    <rpas-test></rpas-test>
+                </div>
+            </template>
+        </rpas-router>
 
-	<div class="c">
-		<div class="row">
-			<h1>Remotely Piloted Aircraft System from a Web User Interface</h1>
-		</div>
-		<hr>
-		<div class="row card">
-			<div class="4 col test">
-				<a onclick="route('/login')">Login</a>
-			</div>
-			<div class="4 col">
-				<a onclick="route('/home')">Aircraft List</a>
-			</div>
-			<div class="4 col">
-				<a onclick="route('/about')">About</a>
-			</div>
-		</div>
-		<div class="row">
-			<table class="w-100">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>GeoLocation</th>
-						<th>Status</th>
-					</tr>
-				</thead>
-				<tbody class="aircraft-list">
-				</tbody>
-			</table>
-		</div>
-		<hr>
-		<div class="row">
-			<p>Made for the Sfeir Innovation Challenge</p>
-		</div>
-	</div>
-	<img>
+        <div class="c">
+            <div class="row">
+                <h1>Remotely Piloted Aircraft System from a Web User Interface</h1>
+            </div>
+            <hr>
+            <div class="row card">
+                <div class="4 col test">
+                    <a onclick="route('/login')">Login</a>
+                </div>
+                <div class="4 col">
+                    <a onclick="route('/home')">Aircraft List</a>
+                </div>
+                <div class="4 col">
+                    <a onclick="route('/about')">About</a>
+                </div>
+            </div>
+            <div class="row">
+                <table class="w-100">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>GeoLocation</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="aircraft-list">
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <div class="row">
+                <p>Made for the Sfeir Innovation Challenge</p>
+            </div>
+        </div>
+        <img>
+    </rpas-message-mediator>
 </body>
 
 </html>
