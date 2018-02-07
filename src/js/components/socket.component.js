@@ -6,7 +6,7 @@ export class SocketComponent extends HTMLElement {
 	constructor () {
 		super();
 
-        this.isOpen = false;
+		this.isOpen = false;
 	}
 
 	/**
@@ -15,36 +15,36 @@ export class SocketComponent extends HTMLElement {
 	connectedCallback () {
 		this.ws.onopen = this.onOpenSocket.bind(this);
 		this.ws.onmessage = this.onMessageSocket.bind(this);
-        this.ws.onclose = this.onCloseSocket.bind(this);
+		this.ws.onclose = this.onCloseSocket.bind(this);
 	}
 
 	onOpenSocket () {
-        let evt = new CustomEvent('open', {
-            bubbles: true
-        });
+		let evt = new CustomEvent('open', {
+			bubbles: true
+		});
 		this.dispatchEvent(evt);
 
-        this.isOpen = true;
+		this.isOpen = true;
 	}
 
 	onMessageSocket () {
 		let json = JSON.parse(event.data),
 			evt = new CustomEvent('message', {
-                bubbles: true,
+				bubbles: true,
 				detail: json
 			});
 
 		this.dispatchEvent(evt);
 	}
 
-    onCloseSocket () {
-        let evt = new CustomEvent('close', {
-            bubbles: true
-        });
+	onCloseSocket () {
+		let evt = new CustomEvent('close', {
+			bubbles: true
+		});
 		this.dispatchEvent(evt);
 
-        this.isOpen = false;
-    }
+		this.isOpen = false;
+	}
 
 	send (json) {
 		this.ws.send(JSON.stringify(json));
@@ -71,13 +71,13 @@ export class SocketComponent extends HTMLElement {
 		return this._ws;
 	}
 
-    get isOpen () {
-        return this._isOpen;
-    }
+	get isOpen () {
+		return this._isOpen;
+	}
 
-    set isOpen (boolean) {
-        this._isOpen = !!boolean;
-    }
+	set isOpen (boolean) {
+		this._isOpen = !!boolean;
+	}
 };
 
 customElements.define(SocketComponent.name, SocketComponent);

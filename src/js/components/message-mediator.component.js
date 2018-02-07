@@ -8,12 +8,12 @@ export class MessageMediatorComponent extends HTMLElement {
 	}
 
 	connectedCallback () {
-        this.addEventListener('message', this.onMessage.bind(this));
+		this.addEventListener('message', this.onMessage.bind(this));
 	}
 
-    onMessage (event) {
-        console.log(event);
-    }
+	onMessage (event) {
+		console.log(event);
+	}
 };
 
 customElements.define(MessageMediatorComponent.name, MessageMediatorComponent);

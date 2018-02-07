@@ -8,9 +8,8 @@ export class HomeComponent extends HTMLElement {
 	}
 
 	connectedCallback () {
-        console.log('Home');
+		console.log('Home');
 	}
 };
 
 customElements.define(HomeComponent.name, HomeComponent);
-

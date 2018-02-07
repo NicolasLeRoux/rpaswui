@@ -25,10 +25,10 @@ var elm = document.querySelector('.aircraft-list');
 
 var elmSocket = document.querySelector('rpas-socket');
 elmSocket.addEventListener('open', (event) => {
-    elmSocket.send({
-        type: 'PILOT',
-        action: 'INIT_SOCKET'
-    });
+	elmSocket.send({
+		type: 'PILOT',
+		action: 'INIT_SOCKET'
+	});
 });
 elmSocket.addEventListener('message', (event) => {
 	let json = event.detail;
