@@ -19,7 +19,7 @@ export class MessageMediatorComponent extends HTMLElement {
 			$recipient = this.querySelector(message.recipient);
 
 			if ($recipient) {
-				if ($recipient.receive) {
+				if (typeof $recipient.receive === 'function') {
 					$recipient.receive(message);
 				} else {
 					console.warn(`Recipient '${message.recipient}' do not implement 'receive' method. Message:`, message);
