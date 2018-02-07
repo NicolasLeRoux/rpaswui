@@ -51,13 +51,6 @@ export class SocketComponent extends HTMLElement {
 	}
 
 	/**
-	 * Invoked when the custom element is moved to a new document.
-	 */
-	adoptedCallback () {
-		console.log('adoptedCallback');
-	}
-
-	/**
 	 * Invoked when the custom element is disconnected from the document's DOM.
 	 */
 	disconnectedCallback () {
