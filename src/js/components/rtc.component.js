@@ -10,6 +10,10 @@ export class RTCComponent extends HTMLElement {
 	connectedCallback () {
 		console.log('RTC');
 	}
+
+	receive () {
+		console.warn('TODO: Implement method !');
+	}
 };
 
 customElements.define(RTCComponent.name, RTCComponent);
