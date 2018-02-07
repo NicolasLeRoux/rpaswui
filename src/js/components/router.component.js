@@ -3,12 +3,6 @@ export class RouterComponent extends HTMLElement {
 		return 'rpas-router';
 	}
 
-	static get observedAttributes () {
-		return [
-			'data-route'
-		];
-	}
-
 	constructor () {
 		super();
 	}
@@ -20,16 +14,6 @@ export class RouterComponent extends HTMLElement {
 				this.dataset.route = item.dataset.routerTarget;
 			};
 		}, this);
-	}
-
-	attributeChangedCallback(name, oldValue, newValue) {
-		switch (name) {
-			case 'data-route':
-				//this.onRouteChange(name, oldValue, newValue);
-				break;
-			default:
-				console.warn('Unwatch attribute', name);
-		}
 	}
 
 	onRouteChange (oldValue, newValue) {
