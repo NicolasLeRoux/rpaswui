@@ -14,6 +14,14 @@ export class RTCComponent extends HTMLElement {
 	receive () {
 		console.warn('TODO: Implement method !');
 	}
+
+	get rtc () {
+		if (!this._rtc) {
+			this._rtc = new new RTCPeerConnection();
+		}
+
+		return this._rtc;
+	}
 };
 
 customElements.define(RTCComponent.name, RTCComponent);
