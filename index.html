@@ -11,8 +11,10 @@
 
 <body>
     <rpas-message-mediator>
-        <rpas-socket data-url="ws://localhost:3000"
-            data-protocol="echo-protocol"></rpas-socket>
+        <rpas-socket-proxy>
+            <rpas-socket data-url="ws://localhost:3000"
+                data-protocol="echo-protocol"></rpas-socket>
+        </rpas-socket-proxy>
 
         <rpas-router data-route="/">
             <template>
