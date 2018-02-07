@@ -12,4 +12,4 @@ export class RTCComponent extends HTMLElement {
 	}
 };
 
-customElements.define(RTCComponent.name, HomeComponent);
+customElements.define(RTCComponent.name, RTCComponent);
