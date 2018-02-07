@@ -50,6 +50,10 @@ export class SocketComponent extends HTMLElement {
 		this.ws.send(JSON.stringify(json));
 	}
 
+	receive (message) {
+		this.ws.send(JSON.stringify(message));
+	}
+
 	/**
 	 * Invoked when the custom element is disconnected from the document's DOM.
 	 */

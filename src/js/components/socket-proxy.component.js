@@ -15,11 +15,29 @@ export class SocketProxyComponent extends ProxyComponent {
 	}
 
 	onMessage (event) {
-		let data = event.detail;
+		let data = event.detail,
+			actionToSendToDroneList = [
+				'UPDATE_REMOTE'
+			],
+			actionToSendToRTC = [
+				'RTC_ICE_CANDIDATE',
+				'INIT_PEER_CO'
+			];
 
-		if (data.action === 'UPDATE_REMOTE') {
+		if (actionToSendToDroneList.includes(data.action)) {
 			let newData = Object.assign({}, data, {
 					recipient: 'rpas-drone-list'
+				}),
+				evt = new CustomEvent('message', {
+					bubbles: true,
+					detail: newData
+				});
+
+			event.stopPropagation();
+			this.dispatchEvent(evt);
+		} else if (actionToSendToRTC.includes(data.action)) {
+			let newData = Object.assign({}, data, {
+					recipient: 'rpas-rtc'
 				}),
 				evt = new CustomEvent('message', {
 					bubbles: true,

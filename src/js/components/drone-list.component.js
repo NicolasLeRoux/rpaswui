@@ -33,7 +33,7 @@ export class DroneListComponent extends HTMLElement {
 	onClickDrone (event) {
 		let $elm = event.currentTarget,
 			remoteId = $elm.dataset.id,
-			json = {
+			data = {
 				action: 'START_PEER_COMMUNICATION',
 				recipient: 'rpas-rtc',
 				data: {
@@ -42,7 +42,7 @@ export class DroneListComponent extends HTMLElement {
 			},
 			evt = new CustomEvent('message', {
 				bubbles: true,
-				detail: json
+				detail: data
 			});
 
 		this.dispatchEvent(evt);
