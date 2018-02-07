@@ -19,7 +19,9 @@ export class SocketComponent extends HTMLElement {
 	}
 
 	onOpenSocket () {
-        let evt = new CustomEvent('open');
+        let evt = new CustomEvent('open', {
+            bubbles: true
+        });
 		this.dispatchEvent(evt);
 
         this.isOpen = true;
@@ -28,6 +30,7 @@ export class SocketComponent extends HTMLElement {
 	onMessageSocket () {
 		let json = JSON.parse(event.data),
 			evt = new CustomEvent('message', {
+                bubbles: true,
 				detail: json
 			});
 
@@ -35,7 +38,9 @@ export class SocketComponent extends HTMLElement {
 	}
 
     onCloseSocket () {
-        let evt = new CustomEvent('close');
+        let evt = new CustomEvent('close', {
+            bubbles: true
+        });
 		this.dispatchEvent(evt);
 
         this.isOpen = false;
