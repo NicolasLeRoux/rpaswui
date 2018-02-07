@@ -14,24 +14,25 @@ export class RouterComponent extends HTMLElement {
 	}
 
 	connectedCallback () {
-		console.debug('Initializing Router')
-		window.route = function (route) {
-			this.dataset.route = route;
-			history.pushState(null, null, route);
-		};
+		Array.prototype.forEach.call(document.querySelectorAll('[data-router-target]'), (item) => {
+			item.onclick = () => {
+				this.onRouteChange(this.dataset.route, item.dataset.routerTarget);
+				this.dataset.route = item.dataset.routerTarget;
+			};
+		}, this);
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
 		switch (name) {
 			case 'data-route':
-				this.onRouteChange(name, oldValue, newValue);
+				//this.onRouteChange(name, oldValue, newValue);
 				break;
 			default:
 				console.warn('Unwatch attribute', name);
 		}
 	}
 
-	onRouteChange (name, oldValue, newValue) {
+	onRouteChange (oldValue, newValue) {
 		let newElm = this.template.querySelector(`[data-route="${newValue}"]`),
 			oldElm = this.querySelector(`[data-route="${oldValue}"]`);
 
