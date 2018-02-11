@@ -4,7 +4,7 @@
   "description": "Proof of concept for a Remotely Piloted Aircraft System with nodejs.",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
