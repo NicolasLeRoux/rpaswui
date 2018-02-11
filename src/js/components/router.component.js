@@ -8,16 +8,26 @@ export class RouterComponent extends HTMLElement {
 	}
 
 	connectedCallback () {
+		this.initiateRouteListening();
+		this.onRouteChange(window.location.pathname !== "/" ? window.location.pathname : '/home');
+	}
+
+	initiateRouteListening () {
 		document.querySelectorAll('[data-router-target]').forEach((item) => {
-			item.onclick = () => {
-				this.onRouteChange(this.dataset.route, item.dataset.routerTarget);
-				this.dataset.route = item.dataset.routerTarget;
-			};
+			item.onclick = this.onRouteChange.bind(this, item.dataset.routerTarget);
 		}, this);
 	}
 
-	onRouteChange (oldValue, newValue) {
-		let newElm = this.template.querySelector(`[data-route="${newValue}"]`),
+	onRouteChange (newRoute) {
+		if (this.dataset.route !== newRoute) {
+			this.changeTemplate(this.dataset.route, newRoute);
+			this.dataset.route = newRoute;
+			window.history.pushState({}, `RAPSWUI: ${newRoute.substring(1)}`, newRoute);
+		}
+	}
+
+	changeTemplate (oldValue, newValue) {
+		const newElm = this.template.querySelector(`[data-route="${newValue}"]`),
 			oldElm = this.querySelector(`[data-route="${oldValue}"]`);
 
 		if (oldElm) {

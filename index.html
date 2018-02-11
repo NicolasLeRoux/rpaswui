@@ -19,28 +19,6 @@
 				</rpas-rtc>
 			</rpas-rtc-proxy>
 
-			<rpas-router data-route="/">
-				<template>
-					<div data-route="/login">
-						<h1>Login</h1>
-					</div>
-					<div data-route="/home">
-						<script type="module" src="src/js/components/home.component.js"></script>
-						<rpas-home>
-							<h1>Home</h1>
-						</rpas-home>
-					</div>
-					<div data-route="/about">
-						<h1>About</h1>
-						<!--
-						Ici, le composant `TestComponent` est chargé dynamiquement.
-						-->
-						<script type="module" src="src/js/components/test.component.js"></script>
-						<rpas-test></rpas-test>
-					</div>
-				</template>
-			</rpas-router>
-
 			<div class="c">
 				<div class="row">
 					<h1>Remotely Piloted Aircraft System from a Web User Interface</h1>
@@ -48,27 +26,48 @@
 				<hr>
 				<div class="row card">
 					<div class="4 col test">
-						<a data-router-target="/login">Login</a>
+						<a data-router-target="/home">Home</a>
 					</div>
 					<div class="4 col">
-						<a data-router-target="/home">Aircraft List</a>
+						<a data-router-target="/aircraft-list">Aircraft List</a>
 					</div>
 					<div class="4 col">
 						<a data-router-target="/about">About</a>
 					</div>
 				</div>
-				<div class="row">
-					<table class="w-100">
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th>GeoLocation</th>
-								<th>Status</th>
-							</tr>
-						</thead>
-						<tbody class="aircraft-list">
-						</tbody>
-					</table>
+				<div id="content" class="row">
+					<rpas-router data-route="/">
+						<template>
+							<div data-route="/home">
+								<p>Welcome to RPASWUI, the next level to control your remotely piloted aircraft system over web application.</p>
+								<p>Too see available aircraft, go to the aircraft list section.</p>
+							</div>
+							<div data-route="/aircraft-list">
+								<script type="module" src="src/js/components/home.component.js"></script>
+								<rpas-home>
+									<table class="w-100">
+										<thead>
+											<tr>
+												<th>Name</th>
+												<th>GeoLocation</th>
+												<th>Status</th>
+											</tr>
+										</thead>
+										<tbody class="aircraft-list">
+										</tbody>
+									</table>
+								</rpas-home>
+							</div>
+							<div data-route="/about">
+								<p>Not implemented yet</p>
+								<!--
+								Ici, le composant `TestComponent` est chargé dynamiquement.
+								-->
+								<script type="module" src="src/js/components/test.component.js"></script>
+								<rpas-test></rpas-test>
+							</div>
+						</template>
+					</rpas-router>
 				</div>
 				<hr>
 				<div class="row">
