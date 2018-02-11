@@ -154,6 +154,7 @@ const findLocal = function (connec) {
 /**
  * Démarrage du serveur
  */
-server.listen(3000, () => {
-	console.info('Démarrage du serveur sur le port 3000.');
+const port = process.env.PORT || 3000;
+server.listen(port, () => {
+	console.info(`Démarrage du serveur sur le port ${port}.`);
 });
