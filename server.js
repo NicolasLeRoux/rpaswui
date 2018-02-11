@@ -19,6 +19,18 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+app.get('/home', (req, res) => {
+	res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/aircraft-list', (req, res) => {
+	res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/about', (req, res) => {
+	res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 app.get('/src/**/*', (req, res) => {
 	res.sendFile(path.join(__dirname, req.url));
 });
