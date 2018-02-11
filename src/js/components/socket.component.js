@@ -3,16 +3,29 @@ export class SocketComponent extends HTMLElement {
 		return 'rpas-socket';
 	}
 
+	static get observedAttributes () {
+		return [
+			'data-url'
+		];
+	}
+
 	constructor () {
 		super();
 
 		this.isOpen = false;
 	}
 
-	/**
-	 * Invoked when the custom element is first connected to the document's DOM.
-	 */
-	connectedCallback () {
+	attributeChangedCallback (name, oldValue, newValue) {
+		switch (name) {
+			case 'data-url':
+				this.onUrlChange(name, oldValue, newValue);
+				break;
+			default:
+				console.warn('Unwatch attribute', name);
+		}
+	}
+
+	onUrlChange (name, oldValue, newValue) {
 		this.ws.onopen = this.onOpenSocket.bind(this);
 		this.ws.onmessage = this.onMessageSocket.bind(this);
 		this.ws.onclose = this.onCloseSocket.bind(this);
