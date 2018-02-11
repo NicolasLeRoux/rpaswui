@@ -10,8 +10,23 @@
 	<body>
 		<rpas-message-mediator>
 			<rpas-socket-proxy>
-				<rpas-socket data-url="wss://rpaswui.herokuapp.com"
-					data-protocol="echo-protocol"></rpas-socket>
+				<rpas-socket data-protocol="echo-protocol"></rpas-socket>
+				<script>
+					let socketElm = document.querySelector('rpas-socket');
+
+					if (socketElm) {
+						switch (location.hostname) {
+							case 'localhost':
+								socketElm.dataset.url = "ws://localhost:3000";
+								break;
+							case 'rpaswui.herokuapp.com':
+								socketElm.dataset.url = "wss://rpaswui.herokuapp.com";
+								break;
+							default:
+								console.warn(`[WebSocket] Unknown hostname: ${location.hostname}`);
+						}
+					}
+				</script>
 			</rpas-socket-proxy>
 
 			<rpas-rtc-proxy>
