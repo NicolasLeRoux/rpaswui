@@ -3,28 +3,31 @@ export class RouterComponent extends HTMLElement {
 		return 'rpas-router';
 	}
 
-	static get observedAttributes () {
-		return [
-			'data-route'
-		];
-	}
-
 	constructor () {
 		super();
 	}
 
-	attributeChangedCallback(name, oldValue, newValue) {
-		switch (name) {
-			case 'data-route':
-				this.onRouteChange(name, oldValue, newValue);
-				break;
-			default:
-				console.warn('Unwatch attribute', name);
+	connectedCallback () {
+		this.initiateRouteListening();
+		this.onRouteChange(window.location.pathname !== "/" ? window.location.pathname : '/home');
+	}
+
+	initiateRouteListening () {
+		document.querySelectorAll('[data-router-target]').forEach((item) => {
+			item.onclick = this.onRouteChange.bind(this, item.dataset.routerTarget);
+		}, this);
+	}
+
+	onRouteChange (newRoute) {
+		if (this.dataset.route !== newRoute) {
+			this.changeTemplate(this.dataset.route, newRoute);
+			this.dataset.route = newRoute;
+			window.history.pushState({}, `RAPSWUI: ${newRoute.substring(1)}`, newRoute);
 		}
 	}
 
-	onRouteChange (name, oldValue, newValue) {
-		let newElm = this.template.querySelector(`[data-route="${newValue}"]`),
+	changeTemplate (oldValue, newValue) {
+		const newElm = this.template.querySelector(`[data-route="${newValue}"]`),
 			oldElm = this.querySelector(`[data-route="${oldValue}"]`);
 
 		if (oldElm) {
