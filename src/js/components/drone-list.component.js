@@ -53,9 +53,9 @@ export class DroneListComponent extends HTMLElement {
 		wrapElm.dataset.id = drone.id;
 		wrapElm.innerHTML = `
 			<td>${drone.name}</td>
-			<td>Todo</td>
+			<td>${drone.geo}</td>
 			<td>
-				<p>Todo<p>
+				<p>${drone.status}<p>
 				<button data-id="${drone.id}">Start</button>
 			</td>
 		`;
