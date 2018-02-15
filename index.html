@@ -58,28 +58,22 @@
 								<p>Too see available aircraft, go to the aircraft list section.</p>
 							</div>
 							<div data-route="/aircraft-list">
-								<script type="module" src="src/js/components/home.component.js"></script>
-								<rpas-home>
-									<table class="w-100">
-										<thead>
-											<tr>
-												<th>Name</th>
-												<th>GeoLocation</th>
-												<th>Status</th>
-											</tr>
-										</thead>
-										<tbody class="aircraft-list">
-										</tbody>
-									</table>
-								</rpas-home>
+								<script type="module" src="src/js/components/drone-list.component.js"></script>
+								<rpas-drone-list></rpas-drone-list>
+								<table class="w-100">
+									<thead>
+										<tr>
+											<th>Name</th>
+											<th>GeoLocation</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody class="aircraft-list">
+									</tbody>
+								</table>
 							</div>
 							<div data-route="/about">
 								<p>Not implemented yet</p>
-								<!--
-								Ici, le composant `TestComponent` est chargé dynamiquement.
-								-->
-								<script type="module" src="src/js/components/test.component.js"></script>
-								<rpas-test></rpas-test>
 							</div>
 						</template>
 					</rpas-router>
@@ -89,11 +83,6 @@
 					<p>Made for the Sfeir Innovation Challenge</p>
 				</div>
 			</div>
-			<rpas-start>
-				<button>Start app !</button>
-			</rpas-start>
-			<rpas-drone-list>
-			</rpas-drone-list>
 			<img>
 		</rpas-message-mediator>
 	</body>

@@ -8,7 +8,16 @@ export class DroneListComponent extends HTMLElement {
 	}
 
 	connectedCallback () {
-		// TODO
+		let evt = new CustomEvent('message', {
+			bubbles: true,
+			detail: {
+				action: 'INIT_SOCKET',
+				recipient: 'rpas-socket',
+				type: 'PILOT'
+			}
+		});
+
+		this.dispatchEvent(evt);
 	}
 
 	receive (message) {
@@ -27,15 +36,21 @@ export class DroneListComponent extends HTMLElement {
 	}
 
 	appendDrone (drone) {
-		let wrapElm = document.createElement('div');
+		let wrapElm = document.createElement('tr');
 
 		wrapElm.dataset.id = drone.id;
 		wrapElm.innerHTML = `
-			<p>${drone.name}</p>
+			<td>${drone.name}</td>
+			<td>Todo</td>
+			<td>
+				<p>Todo<p>
+				<button data-id="${drone.id}">Start</button>
+			</td>
 		`;
-		wrapElm.addEventListener('click', this.onClickDrone.bind(this));
+		
+		this.tableBody.append(wrapElm);
 
-		this.append(wrapElm);
+		document.querySelector(`[data-id="${drone.id}"]`).addEventListener('click', this.onClickDrone.bind(this));
 	}
 
 	onClickDrone (event) {
@@ -54,6 +69,10 @@ export class DroneListComponent extends HTMLElement {
 			});
 
 		this.dispatchEvent(evt);
+	}
+
+	get tableBody () {
+		return document.querySelector('.aircraft-list');
 	}
 };
 
