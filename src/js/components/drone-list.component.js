@@ -1,13 +1,18 @@
 export class DroneListComponent extends HTMLElement {
-	static get name () {
+
+	static get name() {
 		return 'rpas-drone-list';
 	}
 
-	constructor () {
+	get tableBody() {
+		return document.querySelector('.aircraft-list');
+	}
+
+	constructor() {
 		super();
 	}
 
-	connectedCallback () {
+	connectedCallback() {
 		let evt = new CustomEvent('message', {
 			bubbles: true,
 			detail: {
@@ -20,13 +25,20 @@ export class DroneListComponent extends HTMLElement {
 		this.dispatchEvent(evt);
 	}
 
-	receive (message) {
+	receive(message) {
 		switch (message.action) {
 			case 'UPDATE_REMOTE':
 				let drones = message.drones;
 
-				this.innerHTML = ""; // RAZ
-				drones.forEach(this.appendDrone.bind(this));
+				this.tableBody.innerHTML = "";
+
+				if (drones.length !== 0) {
+					drones.forEach(this.appendDrone.bind(this));
+				} else {
+					let emptyElm = document.createElement('tr');
+					emptyElm.innerHTML = `<td class="empty-row" colspan="3">No drone to show</td>`;
+					this.tableBody.append(emptyElm);
+				}
 				break;
 			default:
 				console.error('Undefined action...', {
@@ -35,7 +47,7 @@ export class DroneListComponent extends HTMLElement {
 		}
 	}
 
-	appendDrone (drone) {
+	appendDrone(drone) {
 		let wrapElm = document.createElement('tr');
 
 		wrapElm.dataset.id = drone.id;
@@ -47,13 +59,13 @@ export class DroneListComponent extends HTMLElement {
 				<button data-id="${drone.id}">Start</button>
 			</td>
 		`;
-		
+
 		this.tableBody.append(wrapElm);
 
 		document.querySelector(`[data-id="${drone.id}"]`).addEventListener('click', this.onClickDrone.bind(this));
 	}
 
-	onClickDrone (event) {
+	onClickDrone(event) {
 		let $elm = event.currentTarget,
 			remoteId = $elm.dataset.id,
 			data = {
@@ -69,10 +81,6 @@ export class DroneListComponent extends HTMLElement {
 			});
 
 		this.dispatchEvent(evt);
-	}
-
-	get tableBody () {
-		return document.querySelector('.aircraft-list');
 	}
 };
 
