@@ -26,10 +26,17 @@ export class SocketComponent extends HTMLElement {
 	}
 
 	onUrlChange (name, oldValue, newValue) {
-		this.ws.onopen = this.onOpenSocket.bind(this);
-		this.ws.onmessage = this.onMessageSocket.bind(this);
-		this.ws.onclose = this.onCloseSocket.bind(this);
+        this.url = newValue;
+        this.start();
 	}
+
+    start () {
+        if (!!this.url) {
+            this.ws.onopen = this.onOpenSocket.bind(this);
+            this.ws.onmessage = this.onMessageSocket.bind(this);
+            this.ws.onclose = this.onCloseSocket.bind(this);
+        }
+    }
 
 	onOpenSocket () {
 		let evt = new CustomEvent('open', {
@@ -60,7 +67,9 @@ export class SocketComponent extends HTMLElement {
 	}
 
 	receive (message) {
-		this.ws.send(JSON.stringify(message));
+        if (this.ws.readyState === this.ws.OPEN) {
+            this.ws.send(JSON.stringify(message));
+        }
 	}
 
 	/**
@@ -84,6 +93,14 @@ export class SocketComponent extends HTMLElement {
 	set isOpen (boolean) {
 		this._isOpen = !!boolean;
 	}
+
+    set url (url) {
+        this._url = url;
+    }
+
+    get url () {
+        return this._url;
+    }
 };
 
 customElements.define(SocketComponent.name, SocketComponent);
