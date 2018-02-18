@@ -7,3 +7,7 @@ a.disabled {
     color: #888888;
     opacity: 0.5;
 }
+
+button {
+    margin-right: 1rem;
+}
