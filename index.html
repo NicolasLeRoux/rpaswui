@@ -30,11 +30,6 @@
 				</script>
 			</rpas-socket-proxy>
 
-			<rpas-rtc-proxy>
-				<rpas-rtc>
-				</rpas-rtc>
-			</rpas-rtc-proxy>
-
 			<div class="c">
 				<div class="row">
 					<h1>Remotely Piloted Aircraft System from a Web User Interface</h1>
@@ -73,7 +68,12 @@
 								</table>
 							</div>
 							<div data-route="/aircraft-view">
-								<p>Not implemented yet</p>
+								<script type="module" src="src/js/components/rtc-proxy.component.js"></script>
+								<script type="module" src="src/js/components/rtc.component.js"></script>
+								<rpas-rtc-proxy>
+									<rpas-rtc>
+									</rpas-rtc>
+								</rpas-rtc-proxy>
 							</div>
 							<div data-route="/about">
 								<p>Not implemented yet</p>

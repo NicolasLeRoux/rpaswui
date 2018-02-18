@@ -8,14 +8,16 @@ export class RTCComponent extends HTMLElement {
 	}
 
 	connectedCallback () {
-		// TODO
+		let remoteId = this.parentElement.parentElement.dataset.remoteId;
+		if (remoteId) {
+			this.start(remoteId);
+		} else {
+			console.error('Missing remote Id to start rtc connection');
+		}
 	}
 
 	receive (message) {
 		switch (message.action) {
-			case 'START_PEER_COMMUNICATION':
-				this.start(message.data.remoteId);
-				break;
 			case 'INIT_PEER_CO':
 				this.peerCo.setRemoteDescription(new RTCSessionDescription(message.remoteDescription))
 					.then(() => {
