@@ -1,0 +1,9 @@
+a {
+    cursor: pointer;
+}
+
+a.disabled {
+    pointer-events: none;
+    color: #888888;
+    opacity: 0.5;
+}

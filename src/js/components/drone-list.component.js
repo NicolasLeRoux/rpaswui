@@ -66,7 +66,7 @@ export class DroneListComponent extends HTMLElement {
 	}
 
 	onClickDrone(event) {
-		let $elm = event.currentTarget,
+		/* let $elm = event.currentTarget,
 			remoteId = $elm.dataset.id,
 			data = {
 				action: 'START_PEER_COMMUNICATION',
@@ -78,7 +78,20 @@ export class DroneListComponent extends HTMLElement {
 			evt = new CustomEvent('message', {
 				bubbles: true,
 				detail: data
-			});
+			}); */
+		
+		let $elm = event.currentTarget,
+		remoteId = $elm.dataset.id,
+		evt = new CustomEvent('message', {
+			bubbles: true,
+			detail: {
+				action: 'GO_AIRCRAFT_VIEW',
+				recipient: 'rpas-router',
+				data: {
+					remoteId
+				}
+			}
+		});
 
 		this.dispatchEvent(evt);
 	}
