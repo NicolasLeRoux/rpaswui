@@ -11,8 +11,6 @@ export class SocketComponent extends HTMLElement {
 
 	constructor () {
 		super();
-
-		this.isOpen = false;
 	}
 
 	attributeChangedCallback (name, oldValue, newValue) {
@@ -27,7 +25,6 @@ export class SocketComponent extends HTMLElement {
 
 	onUrlChange (name, oldValue, newValue) {
         this.url = newValue;
-        this.start();
 	}
 
     start () {
@@ -43,8 +40,6 @@ export class SocketComponent extends HTMLElement {
 			bubbles: true
 		});
 		this.dispatchEvent(evt);
-
-		this.isOpen = true;
 	}
 
 	onMessageSocket () {
@@ -62,12 +57,10 @@ export class SocketComponent extends HTMLElement {
 			bubbles: true
 		});
 		this.dispatchEvent(evt);
-
-		this.isOpen = false;
 	}
 
 	receive (message) {
-        if (this.ws.readyState === this.ws.OPEN) {
+        if (this.isOpen) {
             this.ws.send(JSON.stringify(message));
         }
 	}
@@ -82,16 +75,14 @@ export class SocketComponent extends HTMLElement {
 	get ws () {
 		if (!this._ws) {
 			this._ws = new WebSocket(this.dataset.url, this.dataset.protocol);
+
+            this.start();
 		}
 		return this._ws;
 	}
 
 	get isOpen () {
-		return this._isOpen;
-	}
-
-	set isOpen (boolean) {
-		this._isOpen = !!boolean;
+		return this.ws.readyState === this.ws.OPEN;
 	}
 
     set url (url) {
