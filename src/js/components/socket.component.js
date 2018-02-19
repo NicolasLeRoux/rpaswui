@@ -11,6 +11,8 @@ export class SocketComponent extends HTMLElement {
 
 	constructor () {
 		super();
+
+        this.messageBuffer = [];
 	}
 
 	attributeChangedCallback (name, oldValue, newValue) {
@@ -36,6 +38,11 @@ export class SocketComponent extends HTMLElement {
     }
 
 	onOpenSocket () {
+        while (this.messageBuffer.length) {
+            let message = this.messageBuffer.pop();
+
+            this.receive(message);
+        }
 	}
 
 	onMessageSocket () {
@@ -58,6 +65,8 @@ export class SocketComponent extends HTMLElement {
 	receive (message) {
         if (this.isOpen) {
             this.ws.send(JSON.stringify(message));
+        } else {
+            this.messageBuffer.push(message);
         }
 	}
 
