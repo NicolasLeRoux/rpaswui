@@ -36,10 +36,6 @@ export class SocketComponent extends HTMLElement {
     }
 
 	onOpenSocket () {
-		let evt = new CustomEvent('open', {
-			bubbles: true
-		});
-		this.dispatchEvent(evt);
 	}
 
 	onMessageSocket () {
