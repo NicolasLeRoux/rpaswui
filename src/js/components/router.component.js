@@ -18,15 +18,26 @@ export class RouterComponent extends HTMLElement {
 		}, this);
 	}
 
-	onRouteChange (newRoute) {
+	receive (message) {
+		this.onRouteChange('/aircraft-view', message.data);
+	}
+
+	onRouteChange (newRoute, parameters) {
 		if (this.dataset.route !== newRoute) {
-			this.changeTemplate(this.dataset.route, newRoute);
+			let nextPath;
+			if (newRoute.includes('/aircraft-view')) {
+				nextPath = `${newRoute}/${parameters.remoteId}`;
+			} else {
+				nextPath = newRoute;
+			}
+
+			this.changeTemplate(this.dataset.route, newRoute, parameters);
 			this.dataset.route = newRoute;
-			window.history.pushState({}, `RAPSWUI: ${newRoute.substring(1)}`, newRoute);
+			window.history.pushState({}, `RAPSWUI: ${nextPath.substring(1)}`, nextPath);
 		}
 	}
 
-	changeTemplate (oldValue, newValue) {
+	changeTemplate (oldValue, newValue, attr) {
 		const newElm = this.template.querySelector(`[data-route="${newValue}"]`),
 			oldElm = this.querySelector(`[data-route="${oldValue}"]`);
 
@@ -35,7 +46,11 @@ export class RouterComponent extends HTMLElement {
 		}
 
 		if (newElm) {
-			this.append(document.importNode(newElm, true));
+			let newElmClone = document.importNode(newElm, true);
+			if (attr) {
+				newElmClone.dataset.remoteId = attr.remoteId;
+			}
+			this.append(document.importNode(newElmClone, true));
 		}
 	}
 

@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
 		<base href="/">
 		<link type="text/css" rel="stylesheet" href="src/style/lit.css">
+		<link type="text/css" rel="stylesheet" href="src/style/custom.css">
 		<script type="module" src="src/js/main.js"></script>
 	</head>
 	<body>
@@ -29,18 +30,13 @@
 				</script>
 			</rpas-socket-proxy>
 
-			<rpas-rtc-proxy>
-				<rpas-rtc>
-				</rpas-rtc>
-			</rpas-rtc-proxy>
-
 			<div class="c">
 				<div class="row">
 					<h1>Remotely Piloted Aircraft System from a Web User Interface</h1>
 				</div>
 				<hr>
 				<div class="row card">
-					<div class="4 col test">
+					<div class="4 col">
 						<a data-router-target="/home">Home</a>
 					</div>
 					<div class="4 col">
@@ -71,6 +67,21 @@
 									<tbody class="aircraft-list"></tbody>
 								</table>
 							</div>
+							<div data-route="/aircraft-view">
+								<script type="module" src="src/js/components/rtc-proxy.component.js"></script>
+								<script type="module" src="src/js/components/rtc.component.js"></script>
+								<rpas-rtc-proxy>
+									<rpas-rtc>
+										<img class="row">
+										<div class="row">
+											<button class="3 col btn" data-command-direction="up">Up</button>
+											<button class="3 col btn" data-command-direction="down">Down</button>
+											<button class="3 col btn" data-command-direction="left">Left</button>
+											<button class="3 col btn" data-command-direction="right">Right</button>
+										</div>
+									</rpas-rtc>
+								</rpas-rtc-proxy>
+							</div>
 							<div data-route="/about">
 								<p>Not implemented yet</p>
 							</div>
@@ -82,7 +93,6 @@
 					<p>Made for the Sfeir Innovation Challenge</p>
 				</div>
 			</div>
-			<img>
 		</rpas-message-mediator>
 	</body>
 </html>
