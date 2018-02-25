@@ -12,7 +12,7 @@ export class SocketComponent extends HTMLElement {
 	constructor () {
 		super();
 
-		this.isOpen = false;
+        this.messageBuffer = [];
 	}
 
 	attributeChangedCallback (name, oldValue, newValue) {
@@ -26,18 +26,23 @@ export class SocketComponent extends HTMLElement {
 	}
 
 	onUrlChange (name, oldValue, newValue) {
-		this.ws.onopen = this.onOpenSocket.bind(this);
-		this.ws.onmessage = this.onMessageSocket.bind(this);
-		this.ws.onclose = this.onCloseSocket.bind(this);
+        this.url = newValue;
 	}
 
-	onOpenSocket () {
-		let evt = new CustomEvent('open', {
-			bubbles: true
-		});
-		this.dispatchEvent(evt);
+    start () {
+        if (!!this.url) {
+            this.ws.onopen = this.onOpenSocket.bind(this);
+            this.ws.onmessage = this.onMessageSocket.bind(this);
+            this.ws.onclose = this.onCloseSocket.bind(this);
+        }
+    }
 
-		this.isOpen = true;
+	onOpenSocket () {
+        while (this.messageBuffer.length) {
+            let message = this.messageBuffer.pop();
+
+            this.receive(message);
+        }
 	}
 
 	onMessageSocket () {
@@ -55,12 +60,14 @@ export class SocketComponent extends HTMLElement {
 			bubbles: true
 		});
 		this.dispatchEvent(evt);
-
-		this.isOpen = false;
 	}
 
 	receive (message) {
-		this.ws.send(JSON.stringify(message));
+        if (this.isOpen) {
+            this.ws.send(JSON.stringify(message));
+        } else {
+            this.messageBuffer.push(message);
+        }
 	}
 
 	/**
@@ -73,17 +80,23 @@ export class SocketComponent extends HTMLElement {
 	get ws () {
 		if (!this._ws) {
 			this._ws = new WebSocket(this.dataset.url, this.dataset.protocol);
+
+            this.start();
 		}
 		return this._ws;
 	}
 
 	get isOpen () {
-		return this._isOpen;
+		return this.ws.readyState === this.ws.OPEN;
 	}
 
-	set isOpen (boolean) {
-		this._isOpen = !!boolean;
-	}
+    set url (url) {
+        this._url = url;
+    }
+
+    get url () {
+        return this._url;
+    }
 };
 
 customElements.define(SocketComponent.name, SocketComponent);
