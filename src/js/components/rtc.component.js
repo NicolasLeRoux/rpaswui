@@ -48,7 +48,7 @@ export class RTCComponent extends HTMLElement {
 
 		commandChannel.onopen = function () {
 			console.info('Command channel opened.');
-			commandChannel.send('Client: Mon super message !');
+
 			document.querySelectorAll('[data-command-direction]').forEach((item) => {
 				item.onclick = () => {
 					commandChannel.send(JSON.stringify({
