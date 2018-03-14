@@ -52,10 +52,6 @@
 							<div data-route="/home">
 								<p>Welcome to RPASWUI, the next level to control your remotely piloted aircraft system over web application.</p>
 								<p>Too see available aircraft, go to the aircraft list section.</p>
-								<rpas-full-screen>
-									<button class="go-fs">Go full screen</button>
-									<button class="exit-fs">Exit full screen</button>
-								</rpas-full-screen>
 							</div>
 							<div data-route="/aircraft-list">
 								<script type="module" src="src/js/components/drone-list.component.js"></script>
@@ -76,13 +72,21 @@
 								<script type="module" src="src/js/components/rtc.component.js"></script>
 								<rpas-rtc-proxy>
 									<rpas-rtc>
-										<img class="row">
-										<div class="row">
-											<button class="3 col btn" data-command-direction="up">Up</button>
-											<button class="3 col btn" data-command-direction="down">Down</button>
-											<button class="3 col btn" data-command-direction="left">Left</button>
-											<button class="3 col btn" data-command-direction="right">Right</button>
-										</div>
+										<rpas-full-screen>
+											<a class="go-fs">
+												<rpas-full-screen-icon></rpas-full-screen-icon>
+											</a>
+											<a class="exit-fs">
+												<rpas-full-screen-exit-icon></rpas-full-screen-exit-icon>
+											</a>
+											<img class="row">
+											<div class="row">
+												<button class="3 col btn" data-command-direction="up">Up</button>
+												<button class="3 col btn" data-command-direction="down">Down</button>
+												<button class="3 col btn" data-command-direction="left">Left</button>
+												<button class="3 col btn" data-command-direction="right">Right</button>
+											</div>
+										</rpas-full-screen>
 									</rpas-rtc>
 								</rpas-rtc-proxy>
 							</div>

@@ -10,8 +10,8 @@ export class FullScreenComponent extends HTMLElement {
 	}
 
 	connectedCallback () {
-		const goElm = this.querySelector('button.go-fs');
-		const exitElm = this.querySelector('button.exit-fs');
+		const goElm = this.querySelector('.go-fs');
+		const exitElm = this.querySelector('.exit-fs');
 
 		goElm.addEventListener('click', this.onClickGo.bind(this));
 		exitElm.addEventListener('click', this.onClickExit.bind(this));

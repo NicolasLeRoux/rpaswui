@@ -3,3 +3,5 @@ import { SocketProxyComponent } from './components/socket-proxy.component.js';
 import { RouterComponent } from './components/router.component.js';
 import { MessageMediatorComponent } from './components/message-mediator.component.js';
 import './components/full-screen.component.js';
+import './components/full-screen-icon.component.js';
+import './components/full-screen-exit-icon.component.js';
