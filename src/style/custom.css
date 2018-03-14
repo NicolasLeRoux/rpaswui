@@ -1,13 +1,19 @@
 a {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 a.disabled {
-    pointer-events: none;
-    color: #888888;
-    opacity: 0.5;
+	pointer-events: none;
+	color: #888888;
+	opacity: 0.5;
 }
 
 button {
-    margin-right: 1rem;
+	margin-right: 1rem;
+}
+
+.screen-actions {
+	position: absolute;
+	top: 0;
+	right: 8px;
 }
