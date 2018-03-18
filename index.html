@@ -72,13 +72,23 @@
 								<script type="module" src="src/js/components/rtc.component.js"></script>
 								<rpas-rtc-proxy>
 									<rpas-rtc>
-										<img class="row">
-										<div class="row">
-											<button class="3 col btn" data-command-direction="up">Up</button>
-											<button class="3 col btn" data-command-direction="down">Down</button>
-											<button class="3 col btn" data-command-direction="left">Left</button>
-											<button class="3 col btn" data-command-direction="right">Right</button>
-										</div>
+										<rpas-full-screen>
+											<div class="screen-actions">
+												<a class="go-fs">
+													<rpas-full-screen-icon></rpas-full-screen-icon>
+												</a>
+												<a class="exit-fs">
+													<rpas-full-screen-exit-icon></rpas-full-screen-exit-icon>
+												</a>
+											</div>
+											<img class="row">
+											<div class="row">
+												<button class="3 col btn" data-command-direction="up">Up</button>
+												<button class="3 col btn" data-command-direction="down">Down</button>
+												<button class="3 col btn" data-command-direction="left">Left</button>
+												<button class="3 col btn" data-command-direction="right">Right</button>
+											</div>
+										</rpas-full-screen>
 									</rpas-rtc>
 								</rpas-rtc-proxy>
 							</div>
