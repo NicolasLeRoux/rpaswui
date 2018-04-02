@@ -1,4 +1,4 @@
-export class DroneListComponent extends HTMLElement {
+export class DroneListElement extends HTMLElement {
 
 	static get name() {
 		return 'rpas-drone-list';
@@ -97,4 +97,4 @@ export class DroneListComponent extends HTMLElement {
 	}
 };
 
-customElements.define(DroneListComponent.name, DroneListComponent);
+customElements.define(DroneListElement.name, DroneListElement);

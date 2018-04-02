@@ -1,4 +1,4 @@
-export class SocketComponent extends HTMLElement {
+export class SocketElement extends HTMLElement {
 	static get name () {
 		return 'rpas-socket';
 	}
@@ -99,4 +99,4 @@ export class SocketComponent extends HTMLElement {
     }
 };
 
-customElements.define(SocketComponent.name, SocketComponent);
+customElements.define(SocketElement.name, SocketElement);

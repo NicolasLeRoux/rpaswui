@@ -1,4 +1,4 @@
-export class MessageMediatorComponent extends HTMLElement {
+export class MessageMediatorElement extends HTMLElement {
 	static get name () {
 		return 'rpas-message-mediator';
 	}
@@ -35,4 +35,4 @@ export class MessageMediatorComponent extends HTMLElement {
 	}
 };
 
-customElements.define(MessageMediatorComponent.name, MessageMediatorComponent);
+customElements.define(MessageMediatorElement.name, MessageMediatorElement);

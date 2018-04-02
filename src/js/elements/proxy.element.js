@@ -1,4 +1,4 @@
-export class ProxyComponent extends HTMLElement {
+export class ProxyElement extends HTMLElement {
 	static get name () {
 		return 'rpas-proxy';
 	}
@@ -12,4 +12,4 @@ export class ProxyComponent extends HTMLElement {
 	}
 };
 
-customElements.define(ProxyComponent.name, ProxyComponent);
+customElements.define(ProxyElement.name, ProxyElement);

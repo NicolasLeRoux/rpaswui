@@ -1,6 +1,6 @@
-import { ProxyComponent } from './proxy.component.js';
+import { ProxyElement } from './proxy.element.js';
 
-export class RTCProxyComponent extends ProxyComponent {
+export class RTCProxyElement extends ProxyElement {
 	static get name () {
 		return 'rpas-rtc-proxy';
 	}
@@ -36,4 +36,4 @@ export class RTCProxyComponent extends ProxyComponent {
 	}
 };
 
-customElements.define(RTCProxyComponent.name, RTCProxyComponent);
+customElements.define(RTCProxyElement.name, RTCProxyElement);

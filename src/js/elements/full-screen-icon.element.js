@@ -14,7 +14,7 @@ const tmpl = function (data = {}) {
 	`;
 };
 
-export class FullScreenIconComponent extends HTMLElement {
+export class FullScreenIconElement extends HTMLElement {
 
 	static get name () {
 		return 'rpas-full-screen-icon';
@@ -37,4 +37,4 @@ export class FullScreenIconComponent extends HTMLElement {
 	}
 }
 
-customElements.define(FullScreenIconComponent.name, FullScreenIconComponent);
+customElements.define(FullScreenIconElement.name, FullScreenIconElement);

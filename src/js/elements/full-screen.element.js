@@ -17,7 +17,7 @@ const tmpl = function (data = {}) {
 	`;
 };
 
-export class FullScreenComponent extends HTMLElement {
+export class FullScreenElement extends HTMLElement {
 	static get name () {
 		return 'rpas-full-screen';
 	}
@@ -53,4 +53,4 @@ export class FullScreenComponent extends HTMLElement {
 	}
 }
 
-customElements.define(FullScreenComponent.name, FullScreenComponent);
+customElements.define(FullScreenElement.name, FullScreenElement);

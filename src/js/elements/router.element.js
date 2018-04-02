@@ -1,4 +1,4 @@
-export class RouterComponent extends HTMLElement {
+export class RouterElement extends HTMLElement {
 	static get name () {
 		return 'rpas-router';
 	}
@@ -59,4 +59,4 @@ export class RouterComponent extends HTMLElement {
 	}
 };
 
-customElements.define(RouterComponent.name, RouterComponent);
+customElements.define(RouterElement.name, RouterElement);

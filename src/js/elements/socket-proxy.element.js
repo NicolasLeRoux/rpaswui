@@ -1,6 +1,6 @@
-import { ProxyComponent } from './proxy.component.js';
+import { ProxyElement } from './proxy.element.js';
 
-export class SocketProxyComponent extends ProxyComponent {
+export class SocketProxyElement extends ProxyElement {
 	static get name () {
 		return 'rpas-socket-proxy';
 	}
@@ -50,4 +50,4 @@ export class SocketProxyComponent extends ProxyComponent {
 	}
 };
 
-customElements.define(SocketProxyComponent.name, SocketProxyComponent);
+customElements.define(SocketProxyElement.name, SocketProxyElement);

@@ -1,4 +1,4 @@
-export class RTCComponent extends HTMLElement {
+export class RTCElement extends HTMLElement {
 	static get name () {
 		return 'rpas-rtc';
 	}
@@ -128,4 +128,4 @@ export class RTCComponent extends HTMLElement {
 	}
 };
 
-customElements.define(RTCComponent.name, RTCComponent);
+customElements.define(RTCElement.name, RTCElement);
