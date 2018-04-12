@@ -11,9 +11,9 @@ export class VirtualJoystickElement extends HTMLElement {
     connectedCallback () {
         this.joystick = nipplejs.create({
             zone: this,
-            color: 'black',
+            color: 'orange',
             mode: 'static',
-            position: {left: '75%', top: '50%'},
+            position: {left: '75%', top: '50%'}
         });
     }
 }
