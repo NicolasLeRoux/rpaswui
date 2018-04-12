@@ -6,6 +6,7 @@
 		<base href="/">
 		<link type="text/css" rel="stylesheet" href="src/style/lit.css">
 		<link type="text/css" rel="stylesheet" href="src/style/custom.css">
+		<script type="module" src="src/js/vendors/nipplejs.js"></script>
 		<script type="module" src="src/js/main.js"></script>
 	</head>
 	<body>
@@ -20,11 +21,8 @@
 							case 'localhost':
 								socketElm.dataset.url = "ws://localhost:3000";
 								break;
-							case 'rpaswui.herokuapp.com':
-								socketElm.dataset.url = "wss://rpaswui.herokuapp.com";
-								break;
 							default:
-								console.warn(`[WebSocket] Unknown hostname: ${location.hostname}`);
+								socketElm.dataset.url = `ws://${window.location.host}`;
 						}
 					}
 				</script>
@@ -84,12 +82,6 @@
 											<rpas-virtual-joystick>
 												<img class="row">
 											</rpas-virtual-joystick>
-											<div class="row">
-												<button class="3 col btn" data-command-direction="up">Up</button>
-												<button class="3 col btn" data-command-direction="down">Down</button>
-												<button class="3 col btn" data-command-direction="left">Left</button>
-												<button class="3 col btn" data-command-direction="right">Right</button>
-											</div>
 										</rpas-full-screen>
 									</rpas-rtc>
 								</rpas-rtc-proxy>

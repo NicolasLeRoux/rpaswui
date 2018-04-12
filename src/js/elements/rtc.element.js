@@ -49,14 +49,16 @@ export class RTCElement extends HTMLElement {
 		commandChannel.onopen = function () {
 			console.info('Command channel opened.');
 
-			document.querySelectorAll('[data-command-direction]').forEach((item) => {
-				item.onclick = () => {
-					commandChannel.send(JSON.stringify({
-						type: 'COMMAND',
-						direction: item.dataset.commandDirection
-					}));
-				};
-			}, this);
+			document.querySelector('rpas-virtual-joystick').joystick.on('move', (event, data) => {
+				commandChannel.send(JSON.stringify({
+					type: 'COMMAND',
+					direction: {
+						angle: data.angle,
+						direction: data.direction,
+						force: data.force
+					}
+				}));
+			});
 		};
 		commandChannel.onclose = function () {
 			console.info('Command channel closed.');
