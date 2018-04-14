@@ -49,6 +49,11 @@ app.get('/node_modules/**/*', (req, res) => {
  * ```
  */
 wsServer.on('request', function (req) {
+	if (req.requestedProtocols.indexOf('echo-protocol') === -1) {
+		req.reject();
+		return;
+	}
+
 	let connec = req.accept('echo-protocol', req.origin);
 
 	connec.on('message', function(message) {
