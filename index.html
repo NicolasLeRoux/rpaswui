@@ -6,6 +6,7 @@
 		<base href="/">
 		<link type="text/css" rel="stylesheet" href="src/style/lit.css">
 		<link type="text/css" rel="stylesheet" href="src/style/custom.css">
+		<script type="module" src="src/js/vendors/nipplejs.js"></script>
 		<script type="module" src="src/js/main.js"></script>
 	</head>
 	<body>
@@ -20,11 +21,8 @@
 							case 'localhost':
 								socketElm.dataset.url = "ws://localhost:3000";
 								break;
-							case 'rpaswui.herokuapp.com':
-								socketElm.dataset.url = "wss://rpaswui.herokuapp.com";
-								break;
 							default:
-								console.warn(`[WebSocket] Unknown hostname: ${location.hostname}`);
+								socketElm.dataset.url = `ws://${window.location.host}`;
 						}
 					}
 				</script>
@@ -32,7 +30,7 @@
 
 			<div class="c">
 				<div class="row">
-					<h1>Remotely Piloted Aircraft System from a Web User Interface</h1>
+					<h1>RPASWUI</h1>
 				</div>
 				<hr>
 				<div class="row card">
@@ -50,7 +48,7 @@
 					<rpas-router data-route="/">
 						<template>
 							<div data-route="/home">
-								<p>Welcome to RPASWUI, the next level to control your remotely piloted aircraft system over web application.</p>
+								<p>Welcome to the <strong>Remotely Piloted Aircraft System from a Web User Interface</strong>, the next level to control your remotely piloted aircraft system over web application.</p>
 								<p>Too see available aircraft, go to the aircraft list section.</p>
 							</div>
 							<div data-route="/aircraft-list">
@@ -60,7 +58,6 @@
 									<thead>
 										<tr>
 											<th>Name</th>
-											<th>GeoLocation</th>
 											<th>Status</th>
 										</tr>
 									</thead>
@@ -81,13 +78,9 @@
 													<rpas-full-screen-exit-icon></rpas-full-screen-exit-icon>
 												</a>
 											</div>
-											<img class="row">
-											<div class="row">
-												<button class="3 col btn" data-command-direction="up">Up</button>
-												<button class="3 col btn" data-command-direction="down">Down</button>
-												<button class="3 col btn" data-command-direction="left">Left</button>
-												<button class="3 col btn" data-command-direction="right">Right</button>
-											</div>
+											<rpas-virtual-joystick>
+												<img class="row">
+											</rpas-virtual-joystick>
 										</rpas-full-screen>
 									</rpas-rtc>
 								</rpas-rtc-proxy>

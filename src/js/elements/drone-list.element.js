@@ -53,7 +53,6 @@ export class DroneListElement extends HTMLElement {
 		wrapElm.dataset.id = drone.id;
 		wrapElm.innerHTML = `
 			<td>${drone.name}</td>
-			<td>${drone.geo}</td>
 			<td>
 				<p>${drone.status}<p>
 				<button data-id="${drone.id}">Start</button>
