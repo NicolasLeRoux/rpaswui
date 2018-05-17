@@ -3,7 +3,7 @@
 ## Introduction
 
 L'objectif de ce projet est de créer une interface web de pilotage de drone
-(ou RPASWUI). La cible est d'avoir un échange bidirectionnelle de donnée, la vidéo
+(ou RPASWUI). La cible est d'avoir un échange bidirectionnel de données: la vidéo
 et les mesures des capteurs du drone vers le smartphone et les consignes de
 pilotage du smartphone vers le drone.
 
