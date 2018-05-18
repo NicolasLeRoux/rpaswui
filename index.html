@@ -22,7 +22,7 @@
 								socketElm.dataset.url = "ws://localhost:3000";
 								break;
 							default:
-								socketElm.dataset.url = `ws://${window.location.host}`;
+								socketElm.dataset.url = `${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${window.location.host}`;
 						}
 					}
 				</script>
