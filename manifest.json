@@ -3,7 +3,7 @@
   "short_name": "RPASWUI",
   "description":
     "Web App that allow to control remote device trought internet with peer to peer connection",
-  "start_url": "index.html",
+  "start_url": "home",
   "display": "fullscreen",
   "icons": [
     {
