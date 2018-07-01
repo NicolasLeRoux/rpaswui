@@ -1,0 +1,15 @@
+{
+  "name": "Remotely Piloted Aircraft System from a Web User Interface",
+  "short_name": "RPASWUI",
+  "description":
+    "Web App that allow to control remote device trought internet with peer to peer connection",
+  "start_url": "index.html",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "icons/drone.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ]
+}
