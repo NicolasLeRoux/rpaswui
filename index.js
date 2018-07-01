@@ -43,6 +43,10 @@ app.get('/manifest.json', (req, res) => {
 	res.sendFile(path.join(__dirname, 'manifest.json'));
 });
 
+app.get('/icons/drone.png', (req, res) => {
+	res.sendFile(path.join(__dirname, 'icons/drone.png'));
+});
+
 /**
  * Serveur pour les WebSockets.
  *
