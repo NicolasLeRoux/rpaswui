@@ -8,8 +8,9 @@
   "icons": [
     {
       "src": "icons/drone.png",
-      "sizes": "32x32",
+      "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "background_color": "#8822EE"
 }
