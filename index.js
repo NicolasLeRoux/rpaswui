@@ -39,6 +39,10 @@ app.get('/node_modules/**/*', (req, res) => {
 	res.sendFile(path.join(__dirname, req.url));
 });
 
+app.get('/manifest.json', (req, res) => {
+	res.sendFile(path.join(__dirname, 'manifest.json'));
+});
+
 /**
  * Serveur pour les WebSockets.
  *
