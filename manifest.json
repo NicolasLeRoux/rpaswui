@@ -4,7 +4,7 @@
   "description":
     "Web App that allow to control remote device trought internet with peer to peer connection",
   "start_url": "home",
-  "display": "fullscreen",
+  "display": "standalone",
   "icons": [
     {
       "src": "icons/drone.png",
@@ -12,5 +12,5 @@
       "type": "image/png"
     }
   ],
-  "background_color": "#8822EE"
+  "background_color": "#fa0"
 }
