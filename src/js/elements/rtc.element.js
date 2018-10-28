@@ -123,7 +123,14 @@ export class RTCElement extends HTMLElement {
 
 	get peerCo () {
 		if (!this._peerCo) {
-			this._peerCo = new RTCPeerConnection();
+			const customRTCConfiguration = {
+				iceServers: [
+					{
+						urls: 'stun:stun.services.mozilla.com'
+					}
+				]
+			};
+			this._peerCo = new RTCPeerConnection(customRTCConfiguration);
 		}
 
 		return this._peerCo;
